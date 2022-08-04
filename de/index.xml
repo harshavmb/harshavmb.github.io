@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Harshanu</title>
+    <link>https://harshavmb.github.io/de/</link>
+    <description>Recent content on Harshanu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshavmb.github.io/de/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Us</title>
+      <link>https://harshavmb.github.io/de/page/about/</link>
+      <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/page/about/</guid>
+      <description>Written in Go, Harshanu is an open source static site generator available under the Apache Licence 2.0. Harshanu supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hugo makes use of a variety of open source projects including:
+https://github.com/yuin/goldmark https://github.</description>
+    </item>
+    
+    <item>
+      <title>Marriage</title>
+      <link>https://harshavmb.github.io/de/blog/marriage/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/marriage/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/achensee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/achensee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/amsterdam/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/amsterdam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/austria/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/austria/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/barcelona/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/barcelona/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/chiemsee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/chiemsee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/colombo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/colombo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/como/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/como/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/denmark/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/denmark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/djimini/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/djimini/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/eibsee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/eibsee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/engaged/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/engaged/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/erding/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/erding/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/ev15/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/ev15/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/ev6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/ev6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/finland/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/finland/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/florence/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/florence/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/florida/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/florida/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/france/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/france/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/germany/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/germany/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/holland/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/holland/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/innsbruck/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/innsbruck/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/jena/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/jena/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/koenigsee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/koenigsee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/landshut/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/landshut/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/london/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/london/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/monaco/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/monaco/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/munich/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/munich/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/nice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/nice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/norway/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/norway/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/nuwaraeliya/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/nuwaraeliya/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/oslo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/oslo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/palma/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/palma/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/partnachklamm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/partnachklamm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/prague/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/prague/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/rheinfalls/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/rheinfalls/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/rome/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/rome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/salzburg/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/salzburg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/saturnia/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/saturnia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/schwabischgmund/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/schwabischgmund/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/schwarzwald/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/schwarzwald/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/srilanka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/srilanka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/strousbourg/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/strousbourg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/swiss/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/swiss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/taubenstein/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/taubenstein/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/tegernsee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/tegernsee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/teufelstaettkopf/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/teufelstaettkopf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/texas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/texas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/tromso/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/tromso/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/venice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/venice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/walchensee/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/walchensee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://harshavmb.github.io/de/blog/yemmiganur/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshavmb.github.io/de/blog/yemmiganur/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
