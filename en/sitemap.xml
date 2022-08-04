@@ -41,6 +41,69 @@
                 href="https://harshavmb.github.io/en/page/"
                 />
   </url><url>
+    <loc>https://harshavmb.github.io/en/tags/beach/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/blog/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshavmb.github.io/de/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshavmb.github.io/en/blog/"
+                />
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/cycling/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/hiking/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/mediterranean/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/nice/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/blog/nice/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshavmb.github.io/de/blog/nice/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshavmb.github.io/en/blog/nice/"
+                />
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/surfing/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/swiming/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshavmb.github.io/de/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshavmb.github.io/en/tags/"
+                />
+  </url><url>
+    <loc>https://harshavmb.github.io/en/tags/travel/</loc>
+    <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://harshavmb.github.io/en/page/harsha/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -98,24 +161,8 @@
                 href="https://harshavmb.github.io/en/blog/barcelona/"
                 />
   </url><url>
-    <loc>https://harshavmb.github.io/en/tags/beach/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://harshavmb.github.io/en/tags/berchtesgaden/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://harshavmb.github.io/en/blog/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshavmb.github.io/de/blog/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshavmb.github.io/en/blog/"
-                />
   </url><url>
     <loc>https://harshavmb.github.io/en/tags/canals/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -174,9 +221,6 @@
                 href="https://harshavmb.github.io/en/blog/como/"
                 />
   </url><url>
-    <loc>https://harshavmb.github.io/en/tags/cycling/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://harshavmb.github.io/en/tags/dutch/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -206,9 +250,6 @@
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshavmb.github.io/en/tags/hike/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://harshavmb.github.io/en/tags/hiking/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshavmb.github.io/en/tags/holland/</loc>
@@ -346,19 +387,6 @@
     <loc>https://harshavmb.github.io/en/tags/swimming/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://harshavmb.github.io/en/tags/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshavmb.github.io/de/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshavmb.github.io/en/tags/"
-                />
-  </url><url>
     <loc>https://harshavmb.github.io/en/tags/tegernsee/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -374,9 +402,6 @@
                 hreflang="en"
                 href="https://harshavmb.github.io/en/blog/tegernsee/"
                 />
-  </url><url>
-    <loc>https://harshavmb.github.io/en/tags/travel/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshavmb.github.io/en/tags/walchensee/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -611,18 +636,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://harshavmb.github.io/en/blog/munich/"
-                />
-  </url><url>
-    <loc>https://harshavmb.github.io/en/blog/nice/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshavmb.github.io/de/blog/nice/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshavmb.github.io/en/blog/nice/"
                 />
   </url><url>
     <loc>https://harshavmb.github.io/en/blog/norway/</loc>
