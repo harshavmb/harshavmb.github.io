@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Harshanu</title>
-    <link>https://harshavmb.github.io/en/page/</link>
+    <link>https://harshanu.duckdns.org/en/page/</link>
     <description>Recent content in Pages on Harshanu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshavmb.github.io/en/page/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.duckdns.org/en/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Us</title>
-      <link>https://harshavmb.github.io/en/page/about/</link>
+      <link>https://harshanu.duckdns.org/en/page/about/</link>
       <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://harshavmb.github.io/en/page/about/</guid>
+      <guid>https://harshanu.duckdns.org/en/page/about/</guid>
       <description>Written in Go, Harshanu is an open source static site generator available under the Apache Licence 2.0. Harshanu supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 Hugo makes use of a variety of open source projects including:
 https://github.com/yuin/goldmark https://github.</description>
@@ -20,10 +20,10 @@ https://github.com/yuin/goldmark https://github.</description>
     
     <item>
       <title>About me</title>
-      <link>https://harshavmb.github.io/en/page/harsha/</link>
+      <link>https://harshanu.duckdns.org/en/page/harsha/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshavmb.github.io/en/page/harsha/</guid>
+      <guid>https://harshanu.duckdns.org/en/page/harsha/</guid>
       <description> </description>
     </item>
     
