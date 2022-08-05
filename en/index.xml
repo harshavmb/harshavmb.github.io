@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Harshanu</title>
-    <link>https://harshanu.duckdns.org/en/</link>
+    <link>https://harshanu.space/en/</link>
     <description>Recent content on Harshanu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.duckdns.org/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Us</title>
-      <link>https://harshanu.duckdns.org/en/page/about/</link>
+      <link>https://harshanu.space/en/page/about/</link>
       <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/page/about/</guid>
+      <guid>https://harshanu.space/en/page/about/</guid>
       <description>Written in Go, Harshanu is an open source static site generator available under the Apache Licence 2.0. Harshanu supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 Hugo makes use of a variety of open source projects including:
 https://github.com/yuin/goldmark https://github.</description>
@@ -20,478 +20,478 @@ https://github.com/yuin/goldmark https://github.</description>
     
     <item>
       <title>Nice</title>
-      <link>https://harshanu.duckdns.org/en/blog/nice/</link>
+      <link>https://harshanu.space/en/blog/nice/</link>
       <pubDate>Sat, 23 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/nice/</guid>
+      <guid>https://harshanu.space/en/blog/nice/</guid>
       <description>Nice is wonderful place to relax and chillout on the beach.</description>
     </item>
     
     <item>
       <title>About me</title>
-      <link>https://harshanu.duckdns.org/en/page/harsha/</link>
+      <link>https://harshanu.space/en/page/harsha/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/page/harsha/</guid>
+      <guid>https://harshanu.space/en/page/harsha/</guid>
       <description> </description>
     </item>
     
     <item>
       <title>Achensee</title>
-      <link>https://harshanu.duckdns.org/en/blog/achensee/</link>
+      <link>https://harshanu.space/en/blog/achensee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/achensee/</guid>
+      <guid>https://harshanu.space/en/blog/achensee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Amsterdam</title>
-      <link>https://harshanu.duckdns.org/en/blog/amsterdam/</link>
+      <link>https://harshanu.space/en/blog/amsterdam/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/amsterdam/</guid>
+      <guid>https://harshanu.space/en/blog/amsterdam/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Barcelona</title>
-      <link>https://harshanu.duckdns.org/en/blog/barcelona/</link>
+      <link>https://harshanu.space/en/blog/barcelona/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/barcelona/</guid>
+      <guid>https://harshanu.space/en/blog/barcelona/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Chiemsee</title>
-      <link>https://harshanu.duckdns.org/en/blog/chiemsee/</link>
+      <link>https://harshanu.space/en/blog/chiemsee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/chiemsee/</guid>
+      <guid>https://harshanu.space/en/blog/chiemsee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Colombo</title>
-      <link>https://harshanu.duckdns.org/en/blog/colombo/</link>
+      <link>https://harshanu.space/en/blog/colombo/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/colombo/</guid>
+      <guid>https://harshanu.space/en/blog/colombo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Como</title>
-      <link>https://harshanu.duckdns.org/en/blog/como/</link>
+      <link>https://harshanu.space/en/blog/como/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/como/</guid>
+      <guid>https://harshanu.space/en/blog/como/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Eibsee</title>
-      <link>https://harshanu.duckdns.org/en/blog/eibsee/</link>
+      <link>https://harshanu.space/en/blog/eibsee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/eibsee/</guid>
+      <guid>https://harshanu.space/en/blog/eibsee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Innsbruck</title>
-      <link>https://harshanu.duckdns.org/en/blog/innsbruck/</link>
+      <link>https://harshanu.space/en/blog/innsbruck/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/innsbruck/</guid>
+      <guid>https://harshanu.space/en/blog/innsbruck/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Koenigssee</title>
-      <link>https://harshanu.duckdns.org/en/blog/koenigsee/</link>
+      <link>https://harshanu.space/en/blog/koenigsee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/koenigsee/</guid>
+      <guid>https://harshanu.space/en/blog/koenigsee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Marriage</title>
-      <link>https://harshanu.duckdns.org/en/blog/marriage/</link>
+      <link>https://harshanu.space/en/blog/marriage/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/marriage/</guid>
+      <guid>https://harshanu.space/en/blog/marriage/</guid>
       <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Palma</title>
-      <link>https://harshanu.duckdns.org/en/blog/palma/</link>
+      <link>https://harshanu.space/en/blog/palma/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/palma/</guid>
+      <guid>https://harshanu.space/en/blog/palma/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Salzburg</title>
-      <link>https://harshanu.duckdns.org/en/blog/salzburg/</link>
+      <link>https://harshanu.space/en/blog/salzburg/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/salzburg/</guid>
+      <guid>https://harshanu.space/en/blog/salzburg/</guid>
       <description>Salzburg is an Alpine city located in Austria. It&amp;rsquo;s proximity to Munich, rich cultural patronage &amp;amp; fantastic landscapes attaract thousands of tourists from all over the globe.</description>
     </item>
     
     <item>
       <title>Tegernsee</title>
-      <link>https://harshanu.duckdns.org/en/blog/tegernsee/</link>
+      <link>https://harshanu.space/en/blog/tegernsee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/tegernsee/</guid>
+      <guid>https://harshanu.space/en/blog/tegernsee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Walchensee</title>
-      <link>https://harshanu.duckdns.org/en/blog/walchensee/</link>
+      <link>https://harshanu.space/en/blog/walchensee/</link>
       <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/walchensee/</guid>
+      <guid>https://harshanu.space/en/blog/walchensee/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/austria/</link>
+      <link>https://harshanu.space/en/blog/austria/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/austria/</guid>
+      <guid>https://harshanu.space/en/blog/austria/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/denmark/</link>
+      <link>https://harshanu.space/en/blog/denmark/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/denmark/</guid>
+      <guid>https://harshanu.space/en/blog/denmark/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/djimini/</link>
+      <link>https://harshanu.space/en/blog/djimini/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/djimini/</guid>
+      <guid>https://harshanu.space/en/blog/djimini/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/engaged/</link>
+      <link>https://harshanu.space/en/blog/engaged/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/engaged/</guid>
+      <guid>https://harshanu.space/en/blog/engaged/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/erding/</link>
+      <link>https://harshanu.space/en/blog/erding/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/erding/</guid>
+      <guid>https://harshanu.space/en/blog/erding/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/ev15/</link>
+      <link>https://harshanu.space/en/blog/ev15/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/ev15/</guid>
+      <guid>https://harshanu.space/en/blog/ev15/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/ev6/</link>
+      <link>https://harshanu.space/en/blog/ev6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/ev6/</guid>
+      <guid>https://harshanu.space/en/blog/ev6/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/finland/</link>
+      <link>https://harshanu.space/en/blog/finland/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/finland/</guid>
+      <guid>https://harshanu.space/en/blog/finland/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/florence/</link>
+      <link>https://harshanu.space/en/blog/florence/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/florence/</guid>
+      <guid>https://harshanu.space/en/blog/florence/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/florida/</link>
+      <link>https://harshanu.space/en/blog/florida/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/florida/</guid>
+      <guid>https://harshanu.space/en/blog/florida/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/france/</link>
+      <link>https://harshanu.space/en/blog/france/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/france/</guid>
+      <guid>https://harshanu.space/en/blog/france/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/germany/</link>
+      <link>https://harshanu.space/en/blog/germany/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/germany/</guid>
+      <guid>https://harshanu.space/en/blog/germany/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/holland/</link>
+      <link>https://harshanu.space/en/blog/holland/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/holland/</guid>
+      <guid>https://harshanu.space/en/blog/holland/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/jena/</link>
+      <link>https://harshanu.space/en/blog/jena/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/jena/</guid>
+      <guid>https://harshanu.space/en/blog/jena/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/landshut/</link>
+      <link>https://harshanu.space/en/blog/landshut/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/landshut/</guid>
+      <guid>https://harshanu.space/en/blog/landshut/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/london/</link>
+      <link>https://harshanu.space/en/blog/london/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/london/</guid>
+      <guid>https://harshanu.space/en/blog/london/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/monaco/</link>
+      <link>https://harshanu.space/en/blog/monaco/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/monaco/</guid>
+      <guid>https://harshanu.space/en/blog/monaco/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/munich/</link>
+      <link>https://harshanu.space/en/blog/munich/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/munich/</guid>
+      <guid>https://harshanu.space/en/blog/munich/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/norway/</link>
+      <link>https://harshanu.space/en/blog/norway/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/norway/</guid>
+      <guid>https://harshanu.space/en/blog/norway/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/nuwaraeliya/</link>
+      <link>https://harshanu.space/en/blog/nuwaraeliya/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/nuwaraeliya/</guid>
+      <guid>https://harshanu.space/en/blog/nuwaraeliya/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/oslo/</link>
+      <link>https://harshanu.space/en/blog/oslo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/oslo/</guid>
+      <guid>https://harshanu.space/en/blog/oslo/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/partnachklamm/</link>
+      <link>https://harshanu.space/en/blog/partnachklamm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/partnachklamm/</guid>
+      <guid>https://harshanu.space/en/blog/partnachklamm/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/prague/</link>
+      <link>https://harshanu.space/en/blog/prague/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/prague/</guid>
+      <guid>https://harshanu.space/en/blog/prague/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/rheinfalls/</link>
+      <link>https://harshanu.space/en/blog/rheinfalls/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/rheinfalls/</guid>
+      <guid>https://harshanu.space/en/blog/rheinfalls/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/rome/</link>
+      <link>https://harshanu.space/en/blog/rome/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/rome/</guid>
+      <guid>https://harshanu.space/en/blog/rome/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/saturnia/</link>
+      <link>https://harshanu.space/en/blog/saturnia/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/saturnia/</guid>
+      <guid>https://harshanu.space/en/blog/saturnia/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/schwabischgmund/</link>
+      <link>https://harshanu.space/en/blog/schwabischgmund/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/schwabischgmund/</guid>
+      <guid>https://harshanu.space/en/blog/schwabischgmund/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/schwarzwald/</link>
+      <link>https://harshanu.space/en/blog/schwarzwald/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/schwarzwald/</guid>
+      <guid>https://harshanu.space/en/blog/schwarzwald/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/srilanka/</link>
+      <link>https://harshanu.space/en/blog/srilanka/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/srilanka/</guid>
+      <guid>https://harshanu.space/en/blog/srilanka/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/strousbourg/</link>
+      <link>https://harshanu.space/en/blog/strousbourg/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/strousbourg/</guid>
+      <guid>https://harshanu.space/en/blog/strousbourg/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/swiss/</link>
+      <link>https://harshanu.space/en/blog/swiss/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/swiss/</guid>
+      <guid>https://harshanu.space/en/blog/swiss/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/taubenstein/</link>
+      <link>https://harshanu.space/en/blog/taubenstein/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/taubenstein/</guid>
+      <guid>https://harshanu.space/en/blog/taubenstein/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/teufelstaettkopf/</link>
+      <link>https://harshanu.space/en/blog/teufelstaettkopf/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/teufelstaettkopf/</guid>
+      <guid>https://harshanu.space/en/blog/teufelstaettkopf/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/texas/</link>
+      <link>https://harshanu.space/en/blog/texas/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/texas/</guid>
+      <guid>https://harshanu.space/en/blog/texas/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/tromso/</link>
+      <link>https://harshanu.space/en/blog/tromso/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/tromso/</guid>
+      <guid>https://harshanu.space/en/blog/tromso/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/venice/</link>
+      <link>https://harshanu.space/en/blog/venice/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/venice/</guid>
+      <guid>https://harshanu.space/en/blog/venice/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://harshanu.duckdns.org/en/blog/yemmiganur/</link>
+      <link>https://harshanu.space/en/blog/yemmiganur/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://harshanu.duckdns.org/en/blog/yemmiganur/</guid>
+      <guid>https://harshanu.space/en/blog/yemmiganur/</guid>
       <description></description>
     </item>
     
