@@ -3,7 +3,6 @@ on: push
 jobs:
   deploy:
     runs-on: self-hosted
-  steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-      
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
