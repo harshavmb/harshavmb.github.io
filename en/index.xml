@@ -6,7 +6,16 @@
     <description>Recent content on Harshanu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rhinefalls</title>
+      <link>https://harshanu.space/en/blog/rheinfalls/</link>
+      <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/blog/rheinfalls/</guid>
+      <description>Introduction The Rhinefalls one of the most popular places to visit in Switzerland. We visited Rhinefalls and blown away by the sheer power of the Rhine Falls, particularly during the summer, where the water flows at an impressive rate of 600,000 litres per second.</description>
+    </item>
+    
     <item>
       <title>About Us</title>
       <link>https://harshanu.space/en/page/about/</link>
@@ -154,9 +163,18 @@ https://github.com/yuin/goldmark https://github.</description>
     </item>
     
     <item>
+      <title>Engagement</title>
+      <link>https://harshanu.space/en/blog/engaged/</link>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/blog/engaged/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Walchensee</title>
       <link>https://harshanu.space/en/blog/walchensee/</link>
-      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://harshanu.space/en/blog/walchensee/</guid>
       <description></description>
@@ -186,15 +204,6 @@ https://github.com/yuin/goldmark https://github.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://harshanu.space/en/blog/djimini/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://harshanu.space/en/blog/engaged/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://harshanu.space/en/blog/engaged/</guid>
       <description></description>
     </item>
     
@@ -366,15 +375,6 @@ https://github.com/yuin/goldmark https://github.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://harshanu.space/en/blog/prague/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://harshanu.space/en/blog/rheinfalls/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://harshanu.space/en/blog/rheinfalls/</guid>
       <description></description>
     </item>
     
