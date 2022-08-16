@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>carnival on Harshanu</title>
+    <link>https://harshanu.space/en/tags/carnival/</link>
+    <description>Recent content in carnival on Harshanu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/tags/carnival/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Venice</title>
+      <link>https://harshanu.space/en/blog/venice/</link>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/blog/venice/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
