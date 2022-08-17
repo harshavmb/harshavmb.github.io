@@ -399,6 +399,31 @@
     <loc>https://harshanu.space/en/tags/nightlife/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://harshanu.space/en/tags/nordic/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/tags/northernlights/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/tags/norway/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/blog/norway/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/norway/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/norway/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/oslo/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://harshanu.space/en/tags/palma/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -437,6 +462,9 @@
                 href="https://harshanu.space/en/blog/salzburg/"
                 />
   </url><url>
+    <loc>https://harshanu.space/en/tags/sauna/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://harshanu.space/en/tags/skiing/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -461,6 +489,12 @@
                 hreflang="en"
                 href="https://harshanu.space/en/blog/tegernsee/"
                 />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/tromso/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/tags/winter/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/tags/zugspitz/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -493,6 +527,25 @@
     <loc>https://harshanu.space/en/tags/tradition/</loc>
     <lastmod>2021-03-14T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://harshanu.space/en/tags/northsee/</loc>
+    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/blog/oslo/</loc>
+    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/oslo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/oslo/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/scandinavia/</loc>
+    <lastmod>2020-07-16T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://harshanu.space/en/tags/walchensee/</loc>
     <lastmod>2020-06-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -508,6 +561,25 @@
                 hreflang="en"
                 href="https://harshanu.space/en/blog/walchensee/"
                 />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/dogsledding/</loc>
+    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/blog/tromso/</loc>
+    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/tromso/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/tromso/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/reindeers/</loc>
+    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/blog/austria/</loc>
     <xhtml:link
@@ -713,18 +785,6 @@
                 href="https://harshanu.space/en/blog/munich/"
                 />
   </url><url>
-    <loc>https://harshanu.space/en/blog/norway/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/norway/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/norway/"
-                />
-  </url><url>
     <loc>https://harshanu.space/en/blog/nuwaraeliya/</loc>
     <xhtml:link
                 rel="alternate"
@@ -735,18 +795,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://harshanu.space/en/blog/nuwaraeliya/"
-                />
-  </url><url>
-    <loc>https://harshanu.space/en/blog/oslo/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/oslo/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/oslo/"
                 />
   </url><url>
     <loc>https://harshanu.space/en/blog/partnachklamm/</loc>
@@ -891,18 +939,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://harshanu.space/en/blog/texas/"
-                />
-  </url><url>
-    <loc>https://harshanu.space/en/blog/tromso/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/tromso/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/tromso/"
                 />
   </url><url>
     <loc>https://harshanu.space/en/blog/yemmiganur/</loc>
