@@ -172,22 +172,6 @@
     <loc>https://harshanu.space/en/page/harsha/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://harshanu.space/en/tags/achensee/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://harshanu.space/en/blog/achensee/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/achensee/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/achensee/"
-                />
-  </url><url>
     <loc>https://harshanu.space/en/tags/alps/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -358,9 +342,6 @@
     <loc>https://harshanu.space/en/tags/lake/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://harshanu.space/en/tags/lakes/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://harshanu.space/en/tags/mallorca/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -498,6 +479,25 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/zugspitz/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/tags/achensee/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/blog/achensee/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/achensee/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/achensee/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/tags/lakes/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/tags/engagement/</loc>
     <lastmod>2021-03-14T00:00:00+00:00</lastmod>
