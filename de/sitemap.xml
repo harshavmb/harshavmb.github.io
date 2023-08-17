@@ -93,7 +93,21 @@
                 href="https://harshanu.space/de/tags/"
                 />
   </url><url>
+    <loc>https://harshanu.space/de/tags/achensee/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/achensee/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/achensee/"
+                />
+  </url><url>
     <loc>https://harshanu.space/de/blog/achensee/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -103,6 +117,71 @@
                 rel="alternate"
                 hreflang="de"
                 href="https://harshanu.space/de/blog/achensee/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/alps/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/alps/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/alps/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/austria/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/austria/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/austria/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/hiking/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/hiking/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/hiking/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/lakes/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/lakes/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/lakes/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/travel/</loc>
+    <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/travel/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/travel/"
                 />
   </url><url>
     <loc>https://harshanu.space/de/blog/amsterdam/</loc>

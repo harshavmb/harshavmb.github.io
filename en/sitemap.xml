@@ -109,6 +109,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/hiking/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/hiking/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/hiking/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/mediterranean/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
@@ -137,6 +147,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/travel/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/travel/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/travel/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/carnival/</loc>
     <lastmod>2022-02-14T00:00:00+00:00</lastmod>
@@ -174,6 +194,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/alps/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/alps/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/alps/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/amsterdam/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -193,6 +223,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/austria/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/austria/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/austria/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/barcelona/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -482,6 +522,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/achensee/</loc>
     <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/achensee/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/achensee/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/blog/achensee/</loc>
     <lastmod>2021-08-15T00:00:00+00:00</lastmod>
@@ -498,6 +548,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/lakes/</loc>
     <lastmod>2021-08-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/lakes/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/lakes/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/engagement/</loc>
     <lastmod>2021-03-14T00:00:00+00:00</lastmod>
