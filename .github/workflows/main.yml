@@ -17,8 +17,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p 23 -t rsa -H u362339.your-storagebox.de >> ~/.ssh/known_hosts
+          ssh-keyscan -p 23 -t rsa u362339.your-storagebox.de >> ~/.ssh/known_hosts
 
       - name: Deploy code to storage box
         run: |
+          ls -lart
           scp -v -P 23 -r ./ u362339-sub2@u362339.your-storagebox.de:~/harshanu/_work/harshavmb.github.io/harshavmb.github.io/
