@@ -13,9 +13,8 @@
       <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>https://harshanu.space/de/page/about/</guid>
-      <description>Written in Go, Harshanu is an open source static site generator available under the Apache Licence 2.0. Harshanu supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
-https://github.com/yuin/goldmark https://github.</description>
+      <description>Harshavardhan Musanalli ist ein IT-Ingenieur mit einer Leidenschaft für das Reisen. Er ist derzeit in München, Deutschland, ansässig, hat aber im Laufe seines Lebens in über 20 Ländern gereist. Harshavardhan ist immer auf der Suche nach neuen Orten, die es zu erkunden gilt, und nach neuen Kulturen, die er erleben kann.
+Harshavardhans Liebe zum Reisen begann, als er ein Kind war. Er war oft mit seinen Eltern und Geschwistern in den Ferien.</description>
     </item>
     
   </channel>
