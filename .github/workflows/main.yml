@@ -18,4 +18,4 @@ jobs:
 
       - name: Deploy code to storage box
         run: |
-          scp -P 23 -r $(pwd) ${{ vars.HETZNER_STORAGE_USER }}@${{ vars.HETZNER_STORAGE_HOST }}:${{ vars.REMOTE_WEBSITE_PATH }}
+          scp -P 23 -r ${{ env.GITHUB_WORKSPACE }}/* ${{ vars.HETZNER_STORAGE_USER }}@${{ vars.HETZNER_STORAGE_HOST }}:${{ vars.REMOTE_WEBSITE_PATH }}
