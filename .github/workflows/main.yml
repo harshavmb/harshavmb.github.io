@@ -18,6 +18,8 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa u362339.your-storagebox.de >> ~/.ssh/known_hosts
+          eval $(ssh-agent)
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
 
       - name: Deploy code to storage box
         run: |
