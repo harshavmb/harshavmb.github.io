@@ -2,10 +2,6 @@ name: CD for harshanu website
 on: push
 jobs:
   deploy:
-    #runs-on: self-hosted
-    #steps:
-    #  - name: Git checkout
-    #    uses: actions/checkout@v2
 
     runs-on: ubuntu-latest
     steps:
@@ -17,8 +13,8 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p 23 -t rsa u362339.your-storagebox.de >> ~/.ssh/known_hosts
+          ssh-keyscan -p 23 -t rsa $HETZNER_STORAGE_HOST >> ~/.ssh/known_hosts
 
       - name: Deploy code to storage box
         run: |
-          scp -P 23 -r $(pwd) u362339-sub2@u362339.your-storagebox.de:/harshanu/_work/harshavmb.github.io/harshavmb.github.io/
+          scp -P 23 -r $(pwd) $HETZNER_STORAGE_USER@$HETZNER_STORAGE_HOST:$REMOTE_WEBSITE_PATH
