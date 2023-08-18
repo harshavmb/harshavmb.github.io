@@ -398,6 +398,19 @@
     <loc>https://harshanu.space/en/tags/germany/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://harshanu.space/en/blog/marriage/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/marriage/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/marriage/"
+                />
+  </url><url>
     <loc>https://harshanu.space/en/tags/hike/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -447,29 +460,6 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/marriage/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/tags/marriage/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/tags/marriage/"
-                />
-  </url><url>
-    <loc>https://harshanu.space/en/blog/marriage/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/marriage/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/marriage/"
-                />
   </url><url>
     <loc>https://harshanu.space/en/tags/miesbach/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
