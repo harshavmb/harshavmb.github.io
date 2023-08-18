@@ -15,6 +15,19 @@
                 href="https://harshanu.space/de/"
                 />
   </url><url>
+    <loc>https://harshanu.space/de/page/harsha/</loc>
+    <lastmod>2022-08-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/page/harsha/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/page/harsha/"
+                />
+  </url><url>
     <loc>https://harshanu.space/de/page/</loc>
     <lastmod>2022-08-03T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -26,6 +39,19 @@
                 rel="alternate"
                 hreflang="de"
                 href="https://harshanu.space/de/page/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/page/anupama/</loc>
+    <lastmod>2022-08-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/page/anupama/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/page/anupama/"
                 />
   </url><url>
     <loc>https://harshanu.space/de/page/about/</loc>

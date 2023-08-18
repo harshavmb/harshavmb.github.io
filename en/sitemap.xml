@@ -75,6 +75,19 @@
     <loc>https://harshanu.space/en/tags/waterfall/</loc>
     <lastmod>2022-08-14T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://harshanu.space/en/page/anupama/</loc>
+    <lastmod>2022-08-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/page/anupama/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/page/anupama/"
+                />
+  </url><url>
     <loc>https://harshanu.space/en/page/about/</loc>
     <lastmod>2022-08-03T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -86,6 +99,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://harshanu.space/en/page/about/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/page/harsha/</loc>
+    <lastmod>2022-08-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/page/harsha/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/page/harsha/"
                 />
   </url><url>
     <loc>https://harshanu.space/en/page/</loc>
@@ -208,9 +234,6 @@
                 hreflang="en"
                 href="https://harshanu.space/en/blog/venice/"
                 />
-  </url><url>
-    <loc>https://harshanu.space/en/page/harsha/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/tags/alps/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -373,9 +396,6 @@
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/tags/germany/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://harshanu.space/en/tags/harsha/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/en/tags/hike/</loc>
