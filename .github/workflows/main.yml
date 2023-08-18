@@ -17,5 +17,4 @@ jobs:
 
       - name: Deploy code to storage box
         run: |
-          rsync -azP --exclude=bin -e "ssh -i $HOME/.ssh/id_rsa -p 23" ${{ env.GITHUB_WORKSPACE }}/* ${{ vars.HETZNER_STORAGE_USER }}@${{ vars.HETZNER_STORAGE_HOST }}:${{ vars.REMOTE_WEBSITE_PATH }}
-          #scp -P 23 -r ${{ env.GITHUB_WORKSPACE }}/* ${{ vars.HETZNER_STORAGE_USER }}@${{ vars.HETZNER_STORAGE_HOST }}:${{ vars.REMOTE_WEBSITE_PATH }}
+          rsync -azP --exclude=bin -e "ssh -i $HOME/.ssh/id_rsa -p 23" ${{ pwd }}/${{ env.GITHUB_REPOSITORY }}/* ${{ vars.HETZNER_STORAGE_USER }}@${{ vars.HETZNER_STORAGE_HOST }}:${{ vars.REMOTE_WEBSITE_PATH }}          
