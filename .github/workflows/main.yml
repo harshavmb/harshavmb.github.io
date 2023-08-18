@@ -21,4 +21,4 @@ jobs:
 
       - name: Deploy code to storage box
         run: |
-          scp -P 23 -r $(pwd) u362339-sub2@u362339.your-storagebox.de:~/harshanu/_work/harshavmb.github.io/harshavmb.github.io/
+          scp -P 23 -r $(pwd) u362339-sub2@u362339.your-storagebox.de:/harshanu/_work/harshavmb.github.io/harshavmb.github.io/
