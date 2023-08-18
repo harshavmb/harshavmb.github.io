@@ -103,6 +103,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/beach/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/beach/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/beach/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/cycling/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
@@ -144,6 +154,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/swimming/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/swimming/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/swimming/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/travel/</loc>
     <lastmod>2022-04-23T00:00:00+00:00</lastmod>
@@ -236,6 +256,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/barcelona/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/barcelona/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/barcelona/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/blog/barcelona/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -258,6 +288,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/catalonia/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/catalonia/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/catalonia/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/ceylon/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -419,6 +459,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/nightlife/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/nightlife/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/nightlife/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/nordic/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -491,6 +541,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/spain/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/spain/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/spain/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/srilanka/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
