@@ -2,8 +2,53 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://harshanu.space/de/tags/alpen/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/de/tags/bayern/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/de/blog/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/eibsee/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/eibsee/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/eibsee/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/garmisch/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/garmisch/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/garmisch/"
+                />
+  </url><url>
     <loc>https://harshanu.space/de/</loc>
-    <lastmod>2022-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -13,6 +58,45 @@
                 rel="alternate"
                 hreflang="de"
                 href="https://harshanu.space/de/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/zugspitze/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/zugspitze/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/zugspitze/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/blog/zugspitze/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/zugspitze/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/zugspitze/"
                 />
   </url><url>
     <loc>https://harshanu.space/de/page/harsha/</loc>
@@ -106,19 +190,6 @@
                 href="https://harshanu.space/de/tags/beach/"
                 />
   </url><url>
-    <loc>https://harshanu.space/de/blog/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/"
-                />
-  </url><url>
     <loc>https://harshanu.space/de/tags/catalonia/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -131,6 +202,9 @@
                 hreflang="de"
                 href="https://harshanu.space/de/tags/catalonia/"
                 />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/franzosich/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/de/blog/marriage/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
@@ -161,6 +235,67 @@
                 href="https://harshanu.space/de/tags/nightlife/"
                 />
   </url><url>
+    <loc>https://harshanu.space/de/tags/%C3%B6sterreich/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/de/tags/reisen/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/de/tags/rhine/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/rhine/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/rhine/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/salz/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/salz/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/salz/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/salzburg/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/salzburg/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/salzburg/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/blog/salzburg/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/salzburg/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/salzburg/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/schneefahren/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://harshanu.space/de/tags/spain/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -172,6 +307,32 @@
                 rel="alternate"
                 hreflang="de"
                 href="https://harshanu.space/de/tags/spain/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/strasbourg/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/strasbourg/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/strasbourg/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/de/blog/strasbourg/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/strasbourg/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/strasbourg/"
                 />
   </url><url>
     <loc>https://harshanu.space/de/tags/swimming/</loc>
@@ -187,19 +348,6 @@
                 href="https://harshanu.space/de/tags/swimming/"
                 />
   </url><url>
-    <loc>https://harshanu.space/de/tags/</loc>
-    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/tags/"
-                />
-  </url><url>
     <loc>https://harshanu.space/de/tags/travel/</loc>
     <lastmod>2021-08-20T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -212,6 +360,9 @@
                 hreflang="de"
                 href="https://harshanu.space/de/tags/travel/"
                 />
+  </url><url>
+    <loc>https://harshanu.space/de/tags/wanderung/</loc>
+    <lastmod>2021-08-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://harshanu.space/de/tags/achensee/</loc>
     <lastmod>2021-08-15T00:00:00+00:00</lastmod>
@@ -699,18 +850,6 @@
                 href="https://harshanu.space/de/blog/rome/"
                 />
   </url><url>
-    <loc>https://harshanu.space/de/blog/salzburg/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/salzburg/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/salzburg/"
-                />
-  </url><url>
     <loc>https://harshanu.space/de/blog/saturnia/</loc>
     <xhtml:link
                 rel="alternate"
@@ -757,18 +896,6 @@
                 rel="alternate"
                 hreflang="de"
                 href="https://harshanu.space/de/blog/srilanka/"
-                />
-  </url><url>
-    <loc>https://harshanu.space/de/blog/strousbourg/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://harshanu.space/en/blog/strousbourg/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="de"
-                href="https://harshanu.space/de/blog/strousbourg/"
                 />
   </url><url>
     <loc>https://harshanu.space/de/blog/swiss/</loc>
