@@ -173,6 +173,16 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/schaffhausen/</loc>
     <lastmod>2022-08-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/schaffhausen/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/schaffhausen/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/switzerland/</loc>
     <lastmod>2022-08-14T00:00:00+00:00</lastmod>
