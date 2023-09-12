@@ -4,25 +4,42 @@
   <url>
     <loc>https://harshanu.space/en/tags/bigtech/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://harshanu.space/en/blog/</loc>
-    <lastmod>2023-08-21T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://harshanu.space/de/blog/"
+                href="https://harshanu.space/de/tags/bigtech/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://harshanu.space/en/blog/"
+                href="https://harshanu.space/en/tags/bigtech/"
                 />
   </url><url>
     <loc>https://harshanu.space/en/tags/cloud/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/cloud/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/cloud/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/cloudflare/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/cloudflare/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/cloudflare/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
@@ -39,21 +56,81 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/hetzner/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/hetzner/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/hetzner/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/isp/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/isp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/isp/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/nginx/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/nginx/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/nginx/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/photoprism/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/photoprism/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/photoprism/"
+                />
   </url><url>
-    <loc>https://harshanu.space/en/blog/photoprism-hetzner/</loc>
+    <loc>https://harshanu.space/en/tech/photoprism-hetzner/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tech/photoprism-hetzner/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tech/photoprism-hetzner/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/storagebox/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tags/storagebox/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tags/storagebox/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
@@ -66,6 +143,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://harshanu.space/en/tags/"
+                />
+  </url><url>
+    <loc>https://harshanu.space/en/tech/</loc>
+    <lastmod>2023-08-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/tech/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/tech/"
                 />
   </url><url>
     <loc>https://harshanu.space/en/tags/alps/</loc>
@@ -83,6 +173,19 @@
   </url><url>
     <loc>https://harshanu.space/en/tags/bavaria/</loc>
     <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://harshanu.space/en/blog/</loc>
+    <lastmod>2023-08-20T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://harshanu.space/de/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://harshanu.space/en/blog/"
+                />
   </url><url>
     <loc>https://harshanu.space/en/tags/eibsee/</loc>
     <lastmod>2023-08-20T00:00:00+00:00</lastmod>

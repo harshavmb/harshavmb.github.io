@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.svg">
+
+  <title>
+  Photoprism on Hetzner Cloud - Harshanu
+  </title>
+  <meta name="description" content="A Guide to Building Your Own PhotoPrism Setup on Hetzner Cloud" />
+  <meta name="author" content="Harshanu" />
+  <meta name="generator" content="Hugo 0.101.0" /><link
+    rel="stylesheet"
+    href="https://harshanu.space/css/styles.min.198e036e07f9315c64ac8148645b37db60243e6e5206ead92c979b3286f18468.css"
+    integrity="sha256-GY4Dbgf5MVxkrIFIZFs322AkPm5SBurZLJebMobxhGg="
+  />
+  
+  
+
+  <meta property="og:title" content="Photoprism on Hetzner Cloud" />
+<meta property="og:description" content="A Guide to Building Your Own PhotoPrism Setup on Hetzner Cloud" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://harshanu.space/en/tech/photoprism-hetzner/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-08-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-08-21T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Photoprism on Hetzner Cloud"/>
+<meta name="twitter:description" content="A Guide to Building Your Own PhotoPrism Setup on Hetzner Cloud"/>
+
+  <meta itemprop="name" content="Photoprism on Hetzner Cloud">
+<meta itemprop="description" content="A Guide to Building Your Own PhotoPrism Setup on Hetzner Cloud"><meta itemprop="datePublished" content="2023-08-21T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-08-21T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1437">
+<meta itemprop="keywords" content="photoprism,hetzner,cloudflare,cloud,nginx,bigtech,storagebox,isp," />
+
+  
+  <meta name="lang" content="en" />
+  
+</head>
+<body class="dark:bg-gray-800 dark:text-white relative flex flex-col min-h-screen"><header class="container flex justify-between md:justify-between gap-4 flex-wrap p-6 mx-auto relative">
+  <a href="https://harshanu.space/en/" class="capitalize font-extrabold text-2xl">
+    
+    Harshanu
+    
+  </a>
+  <button class="mobile-menu-button md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <line x1="4" y1="8" x2="20" y2="8" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+    </svg>
+  </button>
+  <ul class="mobile-menu absolute z-10 px-6 pb-6 md:p-0 top-full left-0 w-full md:w-auto md:relative hidden md:flex flex-col md:flex-row items-end md:items-center gap-4 lg:gap-6 bg-white dark:bg-gray-800">
+
+    
+    <li><a href="/en/tech">Tech</a></li>
+    
+    <li><a href="/en/blog">Blog</a></li>
+    
+    <li><a href="/en/page/about/">About</a></li>
+    
+    <li><a href="/en/tags">Tags</a></li>
+    
+    <li><a href="/en/blog/marriage/">Top Post</a></li>
+    
+
+    
+    
+    <li class="flex items-center">
+      
+      
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3.6" y1="9" x2="20.4" y2="9" />
+        <line x1="3.6" y1="15" x2="20.4" y2="15" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a17 17 0 0 1 0 18" />
+      </svg>
+      <a href="/de" lang="de">Deutsch</a>
+      
+      
+    </li>
+    
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="toggle-dark-mode inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    </li>
+    
+  </ul>
+</header>
+<main class="flex-1">
+  
+  
+
+  
+  <div class="relative max-w-5xl mx-auto px-4">
+    <img src="https://photos.harshanu.space/api/v1/t/6d028bdd53ee6208c10751515057942eb8f2e815/2zwabhu7/fit_2048" class="rounded-lg shadow-sm w-full object-contain" />
+    
+    <div class="absolute top-4 right-8 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-2 py-0.5">
+      
+  
+    August 21, 2023
+  
+
+
+    </div>
+    
+  </div>
+  
+
+  <article class="prose lg:prose-lg mx-auto my-8 dark:prose-dark px-4">
+
+    <h1 class="text-2xl font-bold mb-2">Photoprism on Hetzner Cloud</h1>
+    
+    <h5 class="text-sm flex items-center flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="4" y1="11" x2="20" y2="11" />
+        <rect x="8" y="15" width="2" height="2" />
+      </svg>
+      Posted on 
+  
+    August 21, 2023
+  
+
+
+      
+        &nbsp;&bull;&nbsp;
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 15" />
+      </svg>
+      7&nbsp;minutes
+      &nbsp;&bull;
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg>
+      1437&nbsp;words
+      
+        &nbsp;&bull;&nbsp;Other languages: &nbsp;<a href="https://harshanu.space/de/tech/photoprism-hetzner/" lang="de">Deutsch</a>
+      
+    </h5>
+    
+
+    
+
+    <h2 id="introduction">Introduction</h2>
+<p>In a world where memories are increasingly captured in pixels, managing and sharing our ever-growing photo collections has become both a challenge and a delight. Whether you&rsquo;re a photography enthusiast, a family historian, or simply someone who loves capturing moments, organizing and accessing your photos should be an effortless experience.</p>
+<p>Welcome to our guide, where we unveil the secrets of building a robust and secure PhotoPrism setup that puts you in control of your visual memories. This comprehensive setup combines the power of cloud hosting, containerization, reverse proxy, database management, encryption, and more, all working seamlessly to create an efficient and user-friendly platform for your cherished photographs.</p>
+<p>Whether you&rsquo;re a seasoned tech enthusiast looking for an exciting project or someone seeking an elegant solution to their photo management needs, our guide has something for you. Join us on this journey as we explore each component of this setup, from the server to the database, and from SSL encryption to reverse proxy, all culminating in a system that will revolutionize the way you interact with your photos.</p>
+<h3 id="photoprism">Photoprism</h3>
+<p>PhotoPrism® is an AI-Powered Photos App for the Decentralized Web. It makes use of the latest technologies to tag and find pictures automatically without getting in your way. You can run it at home, on a private server, or in the cloud.</p>
+<h3 id="hetzner">Hetzner</h3>
+<p>Hetzner is a German hosting company that offers a wide range of hosting services, including dedicated servers, virtual private servers, and cloud computing. Hetzner is a popular choice for hosting websites and applications due to its reliable performance and affordable prices. Hetzner also offers a wide range of features, such as IPv6 support, RAID storage, and DDoS protection.</p>
+<h3 id="cloudflare">Cloudflare</h3>
+<p>Cloudflare is a content delivery network (CDN) and web application firewall (WAF) that helps to protect websites from attacks and improve their performance. Cloudflare also offers a number of other features, such as SSL certificates, image optimization, and bot mitigation.</p>
+<h2 id="architecture-overview">Architecture Overview:</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Internet<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>   Cloudflare
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>   Hetzner Server
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |-- nginx <span style="color:#ff79c6">(</span>Reverse Proxy<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |-- PhotoPrism <span style="color:#ff79c6">(</span>Docker container<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |-- Mariadb Database
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |-- Storage Box
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    |-- Let&#39;s Encrypt <span style="color:#ff79c6">(</span><span style="color:#ff79c6">for</span> SSL certificates<span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p><strong>Internet</strong>: Represents the end user or client accessing your PhotoPrism setup.</p>
+<p><strong>Cloudflare</strong>: This is your DNS provider and reverse proxy. It protects your Hetzner instance by acting as a security barrier and accelerates content delivery through its global network.</p>
+<p><strong>Hetzner (Server)</strong>: Your server is hosted on Hetzner. It&rsquo;s the core of your setup, where PhotoPrism, Nginx, MySQL, and other components reside.</p>
+<p><strong>Nginx (Reverse Proxy)</strong>: Nginx acts as a reverse proxy server, routing incoming requests to the appropriate services within your server.</p>
+<p><strong>PhotoPrism (Docker Container)</strong>: PhotoPrism runs inside a Docker container on your server. It manages your photo collection and provides a web interface for users.</p>
+<p><strong>Mariadb Database</strong>: Mariadb is used for data persistence. PhotoPrism stores metadata and other information in this database.</p>
+<p><strong>Hetzner (Storage Box)</strong>: Your storage box on Hetzner is where your actual photo media files are stored.</p>
+<p><strong>Let&rsquo;s Encrypt</strong>: This represents the SSL certificate provided by Let&rsquo;s Encrypt. It secures the communication between Cloudflare and your Hetzner instance.</p>
+<h2 id="flow-explanation">Flow explanation:</h2>
+<ul>
+<li>The user initiates a request, which first goes through Cloudflare.</li>
+<li>Cloudflare serves as a DNS provider, directing the request to the appropriate server.</li>
+<li>It also acts as a reverse proxy, protecting your Hetzner instance from direct exposure to the internet and providing security features.</li>
+<li>The request then reaches your Hetzner server.</li>
+<li>Nginx, configured as a reverse proxy, forwards the request to the appropriate service inside your server.</li>
+<li>PhotoPrism, running in a Docker container, handles photo management and serves the web interface.</li>
+<li>MySQL is used to store and retrieve metadata and other data related to your photo collection.</li>
+<li>Your actual photo files are stored on the Hetzner storage box.</li>
+<li>Let&rsquo;s Encrypt ensures that the communication between Cloudflare and your Hetzner instance is encrypted and secure.</li>
+</ul>
+<p><strong>Tip</strong>: For faster performance you can use <code>Hetzner Volumes</code> for thumbnail caching, sidecars etc., But you need to pay more money for Volumes.
+Having deployed Photoprism with over 26,000 photos, I&rsquo;ve not seen any problem using <code>storage box</code>. The latency between the server &amp; storage box is under <code>1ms</code>. This tells the requests from the server to storage box are routed via the Hetzner backbone network.</p>
+<h2 id="security-measures">Security Measures:</h2>
+<p>When it comes to your cherished photo collection, security is paramount. Ensuring the safety and confidentiality of your images, metadata, and personal data should be a top priority. In our PhotoPrism setup, we&rsquo;ve implemented a series of robust security measures to protect your digital treasure trove:</p>
+<ol>
+<li>
+<p><strong>Cloudflare Shield</strong>: As your DNS provider and reverse proxy, Cloudflare acts as a powerful shield against various online threats, including DDoS attacks, SQL injections, and more. It ensures that malicious traffic never reaches your Hetzner server.</p>
+</li>
+<li>
+<p><strong>SSL Encryption with Let&rsquo;s Encrypt</strong>: Communication between Cloudflare and your Hetzner instance is secured using SSL encryption, courtesy of Let&rsquo;s Encrypt. This ensures that data transferred between your users and your server remains private and tamper-proof.</p>
+</li>
+<li>
+<p><strong>Hetzner Firewall</strong>: Utilize Hetzner&rsquo;s built-in firewall to further enhance security. Configure it to allow only essential traffic, adding an extra layer of defense against unauthorized access.</p>
+</li>
+<li>
+<p><strong>Regular Software Updates</strong>: Keep all software components, including the server operating system, Nginx, PhotoPrism, and MySQL, up to date with the latest security patches. Vulnerabilities in outdated software can be exploited by malicious actors.</p>
+</li>
+<li>
+<p><strong>Data Backup and Redundancy</strong>: Regularly backup your photo collection and database. Store backups in secure, offsite locations to guard against data loss due to hardware failures, accidental deletions, or security breaches. Hetzner allows you to take storagebox as well as server snapshots so as to protect your data in the events of corruption or hardware failures. Their storage box has multiple RAID configurations which can withhold multiple disk failures.</p>
+</li>
+<li>
+<p><strong>Monitoring and Intrusion Detection</strong>: Set up monitoring tools to keep an eye on server performance and security. Implement intrusion detection systems (IDS) to detect and respond to unusual or malicious activities promptly. I use grafana, prometheus, node exporter storing nginx, mariadb, docker &amp; node exporter logs.</p>
+</li>
+<li>
+<p><strong>User Permissions and Access Control</strong>: Configure user permissions and access control within PhotoPrism and your server (disable port 22 external access) to restrict who can view, modify, or delete photos and data. Only grant access to trusted individuals.</p>
+</li>
+</ol>
+<p>By implementing these security measures, you can rest assured that your photo collection is protected from threats and that your memories remain private. Building a secure foundation for your PhotoPrism setup ensures that you can enjoy your visual treasures without worry, knowing that they are safeguarded in the digital realm.</p>
+<h2 id="exploring-the-limits-of-hosting-the-4k-streaming-challenge">Exploring the Limits of Hosting: The 4K Streaming Challenge</h2>
+<p>In my quest for the perfect media hosting solution, I embarked on an adventure with my trusty Raspberry Pi 4B. Raspberry Pi is a marvel of technology. Its compact size, energy efficiency, and versatility have made it a favorite for countless hobbyists and tinkerers worldwide. It&rsquo;s a budget-friendly solution with a vast community of supporters, allowing you to create projects limited only by your imagination.</p>
+<p>The dream was to stream 4K videos in all their glory. However, as I fine-tuned my Raspberry Pi-based media server, I found myself facing below unexpected adversaries:</p>
+<ul>
+<li><strong>ISP Upload Speeds: The Achilles Heel</strong>: Despite investing in a high-speed plan, the challenge of streaming 4K videos remained elusive due to bandwidth limitations. While my Raspberry Pi proved more than capable, it was clear that a change in the ISP landscape was needed to realize the dream of seamless 4K streaming. Stay tuned for updates on my ongoing quest to conquer this streaming frontier.</li>
+<li><strong>FFMPEG transcodes</strong>: Photoprism transcodes videos in a format modern browsers can play. For high quality video transcoding a GPU is highly recommended. RaspberryPi took ages to transcode large videos, often touching 70°C. You can have a cooling fan but on a long run it&rsquo;s not good for the health of the tiny Pi.</li>
+</ul>
+<h2 id="conclusion-your-photoprism-journey-begins-here">Conclusion: Your PhotoPrism Journey Begins Here</h2>
+<p>In a world where photos hold the power to transport us back in time, elicit emotions, and tell our stories, having a well-organized and secure repository is invaluable. Our setup not only streamlines the process of cataloging and searching through your photos but also enhances the security and accessibility of your digital treasure trove.</p>
+<p>So, what are you waiting for? Dive into this exciting journey of photo management and preservation. Build your own PhotoPrism setup, and let your visual memories shine brighter than ever before. The moments captured in your photos are meant to be relived, and with your new setup, they&rsquo;re just a click away. Your PhotoPrism journey begins here, and we can&rsquo;t wait to see where it takes you.</p>
+
+    <div id="disqus_thread"></div>
+<script>
+    
+
+    
+
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://harshanu-space.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </article><div class="bg-blue-100 dark:bg-gray-900">
+  <div class="container px-4 py-12 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div>
+      <div class="text-2xl font-bold mb-2">Follow us</div>
+      <p class="opacity-60">We share photos, videos, and stories from our travels, hikes, and cycling trips. Follow us to see where we&#39;re going next!</p>
+    </div>
+
+    <ul class="flex justify-center gap-x-3 flex-wrap gap-y-2">
+      
+    </ul>
+  </div>
+</div>
+
+    </main><footer class="container p-6 mx-auto flex justify-between items-center">
+  <span class="text-sm font-light">
+    
+    Copyright © 2022 - Harshanu · All rights reserved
+    
+  </span>
+  <span onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 15l-6 -6l-6 6h12" />
+    </svg>
+  </span>
+</footer>
+
+<div class="search-ui absolute top-0 left-0 w-full h-full bg-white dark:bg-gray-800 hidden">
+  <div class="container max-w-3xl mx-auto p-12">
+    <div class="relative">
+      <div class="my-4 text-center text-2xl font-bold">Search</div>
+
+      <span class="p-2 absolute right-0 top-0 cursor-pointer close-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </div>
+
+    <input type="search" class="py-2 px-3 w-full dark:text-black border dark:border-transparent"
+      placeholder="Enter search query" />
+
+    <div class="search-results text-lg font-medium my-4 hidden">Results</div>
+    <ul class="search-list my-2">
+
+    </ul>
+
+    <div class="no-results text-center my-8 hidden">
+      <div class="text-xl font-semibold mb-2">No results found</div>
+      <p class="font-light text-sm">Try adjusting your search query</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://harshanu.space/js/scripts.min.js"></script>
+
+
+
+
+
+
+<script>
+  
+  const darkmode = document.querySelector('.toggle-dark-mode');
+  function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkmode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkmode', 'dark')
+    }
+  }
+  if (darkmode) {
+    darkmode.addEventListener('click', toggleDarkMode);
+  }
+
+  const darkStorage = localStorage.getItem('darkmode');
+  const isBrowserDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (!darkStorage && isBrowserDark) {
+    document.documentElement.classList.add('dark');
+  }
+
+  if (darkStorage && darkStorage === 'dark') {
+    toggleDarkMode();
+  }
+</script>
+
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const mobileMenu = document.querySelector('.mobile-menu')
+  function toggleMenu() {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  }
+  if(mobileMenu && mobileMenuButton){
+    mobileMenuButton.addEventListener('click', toggleMenu)
+  }
+</script>
+</body>
+</html>
