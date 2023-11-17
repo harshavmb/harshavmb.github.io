@@ -6,7 +6,79 @@
     <description>Recent content in Tags on Harshanu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ansible</title>
+      <link>https://harshanu.space/en/tags/ansible/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>callback</title>
+      <link>https://harshanu.space/en/tags/callback/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/callback/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>debug</title>
+      <link>https://harshanu.space/en/tags/debug/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/debug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>logs</title>
+      <link>https://harshanu.space/en/tags/logs/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/logs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redact</title>
+      <link>https://harshanu.space/en/tags/redact/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/redact/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>secrets</title>
+      <link>https://harshanu.space/en/tags/secrets/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/secrets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sensitive</title>
+      <link>https://harshanu.space/en/tags/sensitive/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/sensitive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>verbose</title>
+      <link>https://harshanu.space/en/tags/verbose/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://harshanu.space/en/tags/verbose/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>bigtech</title>
       <link>https://harshanu.space/en/tags/bigtech/</link>
