@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.svg">
+
+  <title>
+  How go verifies checksums of downloaded modules? - Harshanu
+  </title>
+  <meta name="description" content="A Guide to help the go developer know how go verifies checksums of downloade modules" />
+  <meta name="author" content="Harshanu" />
+  <meta name="generator" content="Hugo 0.101.0" /><link
+    rel="stylesheet"
+    href="https://harshanu.space/css/styles.min.198e036e07f9315c64ac8148645b37db60243e6e5206ead92c979b3286f18468.css"
+    integrity="sha256-GY4Dbgf5MVxkrIFIZFs322AkPm5SBurZLJebMobxhGg="
+  />
+  
+  
+
+  <meta property="og:title" content="How go verifies checksums of downloaded modules?" />
+<meta property="og:description" content="A Guide to help the go developer know how go verifies checksums of downloade modules" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://harshanu.space/en/tech/go-mod-verify/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2023-11-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-11-17T00:00:00+00:00" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How go verifies checksums of downloaded modules?"/>
+<meta name="twitter:description" content="A Guide to help the go developer know how go verifies checksums of downloade modules"/>
+
+  <meta itemprop="name" content="How go verifies checksums of downloaded modules?">
+<meta itemprop="description" content="A Guide to help the go developer know how go verifies checksums of downloade modules"><meta itemprop="datePublished" content="2023-11-17T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-11-17T00:00:00+00:00" />
+<meta itemprop="wordCount" content="790">
+<meta itemprop="keywords" content="go,golang,checksum,base64,fingerprint,sha,sha256sum,module," />
+
+  
+  <meta name="lang" content="en" />
+  
+</head>
+<body class="dark:bg-gray-800 dark:text-white relative flex flex-col min-h-screen"><header class="container flex justify-between md:justify-between gap-4 flex-wrap p-6 mx-auto relative">
+  <a href="https://harshanu.space/en/" class="capitalize font-extrabold text-2xl">
+    
+    Harshanu
+    
+  </a>
+  <button class="mobile-menu-button md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <line x1="4" y1="8" x2="20" y2="8" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+    </svg>
+  </button>
+  <ul class="mobile-menu absolute z-10 px-6 pb-6 md:p-0 top-full left-0 w-full md:w-auto md:relative hidden md:flex flex-col md:flex-row items-end md:items-center gap-4 lg:gap-6 bg-white dark:bg-gray-800">
+
+    
+    <li><a href="/en/tech">Tech</a></li>
+    
+    <li><a href="/en/blog">Blog</a></li>
+    
+    <li><a href="/en/page/about/">About</a></li>
+    
+    <li><a href="/en/tags">Tags</a></li>
+    
+    <li><a href="/en/blog/marriage/">Top Post</a></li>
+    
+
+    
+    
+    <li class="flex items-center">
+      
+      
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3.6" y1="9" x2="20.4" y2="9" />
+        <line x1="3.6" y1="15" x2="20.4" y2="15" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a17 17 0 0 1 0 18" />
+      </svg>
+      <a href="/de" lang="de">Deutsch</a>
+      
+      
+    </li>
+    
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="toggle-dark-mode inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    </li>
+    
+  </ul>
+</header>
+<main class="flex-1">
+  
+  
+
+  
+  <div class="relative max-w-5xl mx-auto px-4">
+    <img src="https://photos.harshanu.space/api/v1/t/6912fb85590d93cd40d452915c80112ba9e5c3a7/2zwabhu7/fit_1280" class="rounded-lg shadow-sm w-full object-contain" />
+    
+    <div class="absolute top-4 right-8 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-2 py-0.5">
+      
+  
+    November 17, 2023
+  
+
+
+    </div>
+    
+  </div>
+  
+
+  <article class="prose lg:prose-lg mx-auto my-8 dark:prose-dark px-4">
+
+    <h1 class="text-2xl font-bold mb-2">How go verifies checksums of downloaded modules?</h1>
+    
+    <h5 class="text-sm flex items-center flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="4" y1="11" x2="20" y2="11" />
+        <rect x="8" y="15" width="2" height="2" />
+      </svg>
+      Posted on 
+  
+    November 17, 2023
+  
+
+
+      
+        &nbsp;&bull;&nbsp;
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 15" />
+      </svg>
+      4&nbsp;minutes
+      &nbsp;&bull;
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg>
+      790&nbsp;words
+      
+        
+      
+    </h5>
+    
+
+    
+
+    <h2 id="introduction">Introduction</h2>
+<p>Checksums play a crucial role in ensuring the integrity of data by providing a unique fingerprint for a given set of information. Whether you&rsquo;re a developer, system administrator, or just a curious individual, understanding how to calculate checksums manually can be a valuable skill. In this guide, we&rsquo;ll explore the concept of checksums and walk through the steps of manually calculating them &amp; compare with go.sum file.</p>
+<h2 id="what-is-a-checksum">What is a Checksum?</h2>
+<p>A checksum is a value derived from the content of a file or data, typically generated using a specific algorithm. Its primary purpose is to verify the integrity of the data by comparing the checksum generated before and after data transfer or storage. If the checksums match, the data is assumed to be intact; otherwise, it may have been corrupted.</p>
+<h2 id="common-checksum-algorithms">Common Checksum Algorithms</h2>
+<p>Several checksum algorithms are commonly used, each with its strengths and weaknesses. Some of the widely used algorithms include:</p>
+<ol>
+<li>
+<p><strong>MD5 (Message Digest Algorithm 5)</strong>: Generates a 128-bit hash value, commonly expressed as a 32-character hexadecimal number.</p>
+</li>
+<li>
+<p><strong>SHA-1 (Secure Hash Algorithm 1)</strong>: Produces a 160-bit hash value, often represented as a 40-character hexadecimal number. Note that SHA-1 is considered insecure for cryptographic purposes.</p>
+</li>
+<li>
+<p><strong>SHA-256 (Secure Hash Algorithm 256-bit)</strong>: A member of the SHA-2 family, it produces a 256-bit hash value, usually represented as a 64-character hexadecimal number.</p>
+</li>
+</ol>
+<h2 id="how-go-computes-the-checksums">How go computes the checksums</h2>
+<p>Go uses <code>SHA-2</code> algorithm to calculate checksums of downloaded modules. It gets triggered during various triggers such as <code>go mod tidy</code>, <code>go mod verify</code>, <code>go mod vendor</code> just to name few. According to the documentation <a href="https://cs.opensource.google/go/x/mod/&#43;/master:sumdb/dirhash/hash.go" target="_blank" rel="noopener">here</a>
+, below actions are performed ::</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#6272a4">// Hash1 is &#34;h1:&#34; followed by the base64-encoded SHA-256 hash of a summary
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// prepared as if by the Unix command:
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">//
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">//	sha256sum $(find . -type f | sort) | sha256sum
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">//
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// More precisely, the hashed summary contains a single line for each file in the list,
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// ordered by sort.Strings applied to the file names, where each line consists of
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// the hexadecimal SHA-256 hash of the file content,
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// two spaces (U+0020), the file name, and a newline (U+000A).
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">//
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// File names with newlines (U+000A) are disallowed.
+</span></span></span></code></pre></div>
+<p>The above documentation is very clear. But it took more than a day to verify manually. This has been answered by me on <a href="https://stackoverflow.com/a/77579470/3405980" target="_blank" rel="noopener">StackOverflow</a>
+.</p>
+<p>A typical <code>go.sum</code> file looks like below ::
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>github.com<span style="color:#ff79c6">/</span>gorilla<span style="color:#ff79c6">/</span>websocket v1<span style="color:#bd93f9">.5.1</span> h1:gmztn0JnHVt9JZquRuzLw3g4wouNVzKL15iLr<span style="color:#ff79c6">/</span>zn<span style="color:#ff79c6">/</span>QY=
+</span></span><span style="display:flex;"><span>github.com<span style="color:#ff79c6">/</span>gorilla<span style="color:#ff79c6">/</span>websocket v1<span style="color:#bd93f9">.5.1</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">go</span>.mod h1:x3kM2JMyaluk02fnUJpQuwD2dCS5NDG2ZHL0uE0tcaY=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>crypto v0<span style="color:#bd93f9">.16.0</span> h1:mMMrFzRSCF0GvB7Ne27XVtVAaXLrPmgPC7<span style="color:#ff79c6">/</span>v0tkwHaY=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>crypto v0<span style="color:#bd93f9">.16.0</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">go</span>.mod h1:gCAAfMLgwOJRpTjQ2zCCt2OcSfYMTeZVSRtQlPC7Nq4=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>net v0<span style="color:#bd93f9">.17.0</span> h1:pVaXccu2ozPjCXewfr1S7xza<span style="color:#ff79c6">/</span>zcXTity9cCdXQYSjIM=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>net v0<span style="color:#bd93f9">.17.0</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">go</span>.mod h1:NxSsAGuq816PNPmqtQdLE42eU2Fs7NoRIZrHJAlaCOE=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>sys v0<span style="color:#bd93f9">.15.0</span> h1:h48lPFYpsTvQJZF4EKyI4aLHaev3CxivZmv7yZig9pc=
+</span></span><span style="display:flex;"><span>golang.org<span style="color:#ff79c6">/</span>x<span style="color:#ff79c6">/</span>sys v0<span style="color:#bd93f9">.15.0</span><span style="color:#ff79c6">/</span><span style="color:#ff79c6">go</span>.mod h1:<span style="color:#ff79c6">/</span>VUhepiaJMQUp4<span style="color:#ff79c6">+</span>oa<span style="color:#ff79c6">/</span><span style="color:#bd93f9">7</span>Zr1D23ma6VTLIYjOOTFZPUcA=</span></span></code></pre></div></p>
+<p>The above format is a concatenated form of <code>&lt;module-path&gt; &lt;module-version&gt; &lt;h1:checksum&gt;</code>. go also calculates checksum of <code>go.mod</code> file. The <code>checksum</code> here is <code>base64</code> encoded form of <code>SHA-2</code> hash of module directory.</p>
+<h2 id="how-to-calculate-go-checksums-manually">How to calculate go checksums manually?</h2>
+<p>The way it works is ::</p>
+<ul>
+<li>Calculate the <code>sha256sum</code> of each file content in the module directory</li>
+<li>format the above calculated sha2sum followed by two spaces, filename and the new line <code>(fmt.Fprintf(h, &quot;%x  %s\n&quot;, hf.Sum(nil), file)</code>. It&rsquo;s taken from here</li>
+<li>Now calculate the <code>sha256sum</code> for all the files together</li>
+<li>Convert above hex output into binary mode with <code>xxd</code> (on *unix systems, if you do programmatically, base64 could be encoded directly from byte array)</li>
+<li>Encode it with <code>base64</code></li>
+<li>Compare the output with checksum in <code>go.sum</code> file</li>
+</ul>
+<p>For <code>go.mod</code> file it&rsquo;s relatively easy to calculate with below bash command ::</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>harsha$ sha256sum <span style="color:#ff79c6">$(</span>find go.mod -type f | sort<span style="color:#ff79c6">)</span> | sha256sum | xxd -r -p | base64
+</span></span><span style="display:flex;"><span>oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg<span style="color:#ff79c6">=</span>
+</span></span></code></pre></div><p>This matches the checksum defined in <code>go.sum</code> file using <code>golang.org/x/sys</code> module <code>v0.12.0</code> version.</p>
+<p>Only thing one needs to be aware is the path of the <code>go.mod</code> shouldn&rsquo;t be passed as it can also influence the <code>sha256sum</code> calculation in 2nd iteration.</p>
+<p>For module directory verification, the process is almost same except the file name as go verifies it bit differently compared to <code>go.mod</code>. From here, to calculate the hash of directory followed by prefix of the module path like <code>mod.Path+&quot;@&quot;+mod.Version</code> which translates to <code>golang.org/x/sys@v0.12.0</code> for <code>sys</code> module.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>harsha $ sha256sum <span style="color:#ff79c6">$(</span>find /Users/harsha/go/pkg/mod/golang.org/x/sys@v0.12.0 -type f | sort <span style="color:#ff79c6">)</span> | sed <span style="color:#f1fa8c">&#39;s#/Users/harsha/go/pkg/mod/##&#39;</span> | sha256sum | xxd -r -p | base64       
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">CM0HF96J0hcLAwsHPJZjfdNzs0gftsLfgKt57wWHJ0o</span><span style="color:#ff79c6">=</span>
+</span></span></code></pre></div><p>The <code>sed</code> here trims filepath from absolute path <code>/Users/harsha/go/pkg/mod/golang.org/x/sys@v0.12.0</code> to <code>golang.org/x/sys@v0.12.0</code> (mod path)</p>
+<p>I could verify the same with <code>golang</code> too by targeting <code>HashDir</code> function <a href="https://cs.opensource.google/go/x/mod/&#43;/refs/tags/v0.12.0:sumdb/dirhash/hash.go;l=70-79" target="_blank" rel="noopener">here</a>
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>func TestHashDir2<span style="color:#ff79c6">(</span>t *testing.T<span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>  out, err :<span style="color:#ff79c6">=</span> HashDir<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;/Users/hmusanalli/go/pkg/mod/golang.org/x/sys@v0.12.0&#34;</span>, <span style="color:#f1fa8c">&#34;golang.org/x/sys@v0.12.0&#34;</span>, Hash1<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> err !<span style="color:#ff79c6">=</span> nil <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    t.Fatalf<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;HashDir: %v&#34;</span>, err<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  want :<span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;h1:CM0HF96J0hcLAwsHPJZjfdNzs0gftsLfgKt57wWHJ0o=&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> out !<span style="color:#ff79c6">=</span> want <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>    t.Errorf<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;HashDir(...) = %s, want %s&#34;</span>, out, want<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>Calculating checksums manually provides a deeper understanding of data integrity and can be a useful skill in various scenarios. Whether you&rsquo;re verifying file downloads, implementing data validation in programming, or exploring the foundations of cryptographic hashing, understanding the manual checksum calculation process is a valuable addition to your skill set.</p>
+
+    <div id="disqus_thread"></div>
+<script>
+    
+
+    
+
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://harshanu-space.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </article><div class="bg-blue-100 dark:bg-gray-900">
+  <div class="container px-4 py-12 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div>
+      <div class="text-2xl font-bold mb-2">Follow us</div>
+      <p class="opacity-60">We share photos, videos, and stories from our travels, hikes, and cycling trips. Follow us to see where we&#39;re going next!</p>
+    </div>
+
+    <ul class="flex justify-center gap-x-3 flex-wrap gap-y-2">
+      
+    </ul>
+  </div>
+</div>
+
+    </main><footer class="container p-6 mx-auto flex justify-between items-center">
+  <span class="text-sm font-light">
+    
+    Copyright © 2022 - Harshanu · All rights reserved
+    
+  </span>
+  <span onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 15l-6 -6l-6 6h12" />
+    </svg>
+  </span>
+</footer>
+
+<div class="search-ui absolute top-0 left-0 w-full h-full bg-white dark:bg-gray-800 hidden">
+  <div class="container max-w-3xl mx-auto p-12">
+    <div class="relative">
+      <div class="my-4 text-center text-2xl font-bold">Search</div>
+
+      <span class="p-2 absolute right-0 top-0 cursor-pointer close-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </div>
+
+    <input type="search" class="py-2 px-3 w-full dark:text-black border dark:border-transparent"
+      placeholder="Enter search query" />
+
+    <div class="search-results text-lg font-medium my-4 hidden">Results</div>
+    <ul class="search-list my-2">
+
+    </ul>
+
+    <div class="no-results text-center my-8 hidden">
+      <div class="text-xl font-semibold mb-2">No results found</div>
+      <p class="font-light text-sm">Try adjusting your search query</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://harshanu.space/js/scripts.min.js"></script>
+
+
+
+
+
+
+<script>
+  
+  const darkmode = document.querySelector('.toggle-dark-mode');
+  function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkmode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkmode', 'dark')
+    }
+  }
+  if (darkmode) {
+    darkmode.addEventListener('click', toggleDarkMode);
+  }
+
+  const darkStorage = localStorage.getItem('darkmode');
+  const isBrowserDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (!darkStorage && isBrowserDark) {
+    document.documentElement.classList.add('dark');
+  }
+
+  if (darkStorage && darkStorage === 'dark') {
+    toggleDarkMode();
+  }
+</script>
+
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const mobileMenu = document.querySelector('.mobile-menu')
+  function toggleMenu() {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  }
+  if(mobileMenu && mobileMenuButton){
+    mobileMenuButton.addEventListener('click', toggleMenu)
+  }
+</script>
+</body>
+</html>
