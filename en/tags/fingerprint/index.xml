@@ -6,11 +6,11 @@
     <description>Recent content in fingerprint on Harshanu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/tags/fingerprint/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://harshanu.space/en/tags/fingerprint/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How go verifies checksums of downloaded modules?</title>
       <link>https://harshanu.space/en/tech/go-mod-verify/</link>
-      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 30 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://harshanu.space/en/tech/go-mod-verify/</guid>
       <description>Introduction Checksums play a crucial role in ensuring the integrity of data by providing a unique fingerprint for a given set of information. Whether you&amp;rsquo;re a developer, system administrator, or just a curious individual, understanding how to calculate checksums manually can be a valuable skill. In this guide, we&amp;rsquo;ll explore the concept of checksums and walk through the steps of manually calculating them &amp;amp; compare with go.sum file.
