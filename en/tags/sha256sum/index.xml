@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sha256sum on Harshanu</title>
+    <link>https://harshanu.space/en/tags/sha256sum/</link>
+    <description>Recent content in Sha256sum on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 30 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/sha256sum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How go verifies checksums of downloaded modules?</title>
+      <link>https://harshanu.space/en/tech/go-mod-verify/</link>
+      <pubDate>Thu, 30 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/go-mod-verify/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Checksums play a crucial role in ensuring the integrity of data by providing a unique fingerprint for a given set of information. Whether you&amp;rsquo;re a developer, system administrator, or just a curious individual, understanding how to calculate checksums manually can be a valuable skill. In this guide, we&amp;rsquo;ll explore the concept of checksums and walk through the steps of manually calculating them &amp;amp; compare with go.sum file.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-a-checksum&#34;&gt;What is a Checksum?&lt;/h2&gt;&#xA;&lt;p&gt;A checksum is a value derived from the content of a file or data, typically generated using a specific algorithm. Its primary purpose is to verify the integrity of the data by comparing the checksum generated before and after data transfer or storage. If the checksums match, the data is assumed to be intact; otherwise, it may have been corrupted.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

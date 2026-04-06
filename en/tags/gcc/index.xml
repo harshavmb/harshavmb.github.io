@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gcc on Harshanu</title>
+    <link>https://harshanu.space/en/tags/gcc/</link>
+    <description>Recent content in Gcc on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CCC vs GCC</title>
+      <link>https://harshanu.space/en/tech/ccc-vs-gcc/</link>
+      <pubDate>Sun, 08 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/ccc-vs-gcc/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Anthropic recently published a blog post about &lt;a href=&#34;https://www.anthropic.com/engineering/building-c-compiler&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;building a C compiler entirely with Claude&lt;/a&gt;&#xA;. They called it CCC (Claude&amp;rsquo;s C Compiler) and claimed it could compile the Linux kernel. 100% of the code was written by Claude Opus 4.6, a human only guided the process by writing test cases. That sounded interesting enough to test the claim and benchmark CCC against the industry standard GCC.&lt;/p&gt;&#xA;&lt;p&gt;The source code of CCC is available at &lt;a href=&#34;https://github.com/anthropics/claudes-c-compiler&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;claudes-c-compiler&lt;/a&gt;&#xA;. It is written entirely in Rust, targeting x86-64, i686, AArch64 and RISC-V 64. The frontend, SSA-based IR, optimizer, code generator, peephole optimizers, assembler, linker and DWARF debug info generation are all implemented from scratch with zero compiler-specific dependencies. That is a lot of work for an AI to do.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.svg">
+
+  <title>
+  Wazuh SSO with Zitadel using SAML 2.0 - Harshanu
+  </title>
+  <meta name="description" content="A practical guide to integrating Wazuh Dashboard SSO with Zitadel as SAML Identity Provider, including role injection via Zitadel Actions" />
+  <meta name="author" content="Harshanu" />
+  <meta name="generator" content="Hugo 0.155.2"><link
+    rel="stylesheet"
+    href="https://harshanu.space/css/styles.min.5100ae37b4f01d286e6fbf85859b8ae48eeab3031f9846f39fd3fff69942cb02.css"
+    integrity="sha256-UQCuN7TwHShub7+FhZuK5I7qswMfmEbzn9P/9plCywI="
+  />
+  
+  
+
+  <meta property="og:url" content="https://harshanu.space/en/tech/wazuh-zitadel-sso/">
+  <meta property="og:site_name" content="Harshanu">
+  <meta property="og:title" content="Wazuh SSO with Zitadel using SAML 2.0">
+  <meta property="og:description" content="A practical guide to integrating Wazuh Dashboard SSO with Zitadel as SAML Identity Provider, including role injection via Zitadel Actions">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2026-04-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-04-06T00:00:00+00:00">
+    <meta property="article:tag" content="Wazuh">
+    <meta property="article:tag" content="Zitadel">
+    <meta property="article:tag" content="Saml">
+    <meta property="article:tag" content="Sso">
+    <meta property="article:tag" content="Opensearch">
+    <meta property="article:tag" content="Security">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Wazuh SSO with Zitadel using SAML 2.0">
+  <meta name="twitter:description" content="A practical guide to integrating Wazuh Dashboard SSO with Zitadel as SAML Identity Provider, including role injection via Zitadel Actions">
+
+  
+  <meta itemprop="name" content="Wazuh SSO with Zitadel using SAML 2.0">
+  <meta itemprop="description" content="A practical guide to integrating Wazuh Dashboard SSO with Zitadel as SAML Identity Provider, including role injection via Zitadel Actions">
+  <meta itemprop="datePublished" content="2026-04-06T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-04-06T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2469">
+  <meta itemprop="keywords" content="Wazuh,Zitadel,Saml,Sso,Opensearch,Security,Idp,Siem">
+
+  
+  <meta name="lang" content="en" />
+  
+</head>
+<body class="dark:bg-gray-800 dark:text-white relative flex flex-col min-h-screen"><header class="container flex justify-between md:justify-between gap-4 flex-wrap p-6 mx-auto relative">
+  <a href="https://harshanu.space/en/" class="capitalize font-extrabold text-2xl">
+    
+    Harshanu
+    
+  </a>
+  <button class="mobile-menu-button md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <line x1="4" y1="8" x2="20" y2="8" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+    </svg>
+  </button>
+  <ul class="mobile-menu absolute z-10 px-6 pb-6 md:p-0 top-full left-0 w-full md:w-auto md:relative hidden md:flex flex-col md:flex-row items-end md:items-center gap-4 lg:gap-6 bg-white dark:bg-gray-800">
+
+    
+    <li><a href="/en/tech">Tech</a></li>
+    
+    <li><a href="/en/blog">Blog</a></li>
+    
+    <li><a href="/en/page/about/">About</a></li>
+    
+    <li><a href="/en/tags">Tags</a></li>
+    
+    <li><a href="/en/blog/marriage/">Top Post</a></li>
+    
+
+    
+    
+    <li class="flex items-center">
+      
+      
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3.6" y1="9" x2="20.4" y2="9" />
+        <line x1="3.6" y1="15" x2="20.4" y2="15" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a17 17 0 0 1 0 18" />
+      </svg>
+      <a href="/de" lang="de">Deutsch</a>
+      
+      
+    </li>
+    
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="toggle-dark-mode inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    </li>
+    
+  </ul>
+</header>
+<main class="flex-1">
+  
+  
+
+  
+  <div class="relative max-w-5xl mx-auto px-4">
+    <img src="https://photos.harshanu.space/api/v1/t/034f9c7b9d088f235cf02df615ca7bf7464931ed/081gaa0s/fit_2048" class="rounded-lg shadow-sm w-full object-contain" />
+    
+    <div class="absolute top-4 right-8 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-2 py-0.5">
+      
+  
+    April 6, 2026
+  
+
+
+    </div>
+    
+  </div>
+  
+
+  <article class="prose lg:prose-lg mx-auto my-8 dark:prose-dark px-4">
+
+    <h1 class="text-2xl font-bold mb-2">Wazuh SSO with Zitadel using SAML 2.0</h1>
+    
+    <h5 class="text-sm flex items-center flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="4" y1="11" x2="20" y2="11" />
+        <rect x="8" y="15" width="2" height="2" />
+      </svg>
+      Posted on 
+  
+    April 6, 2026
+  
+
+
+      
+        &nbsp;&bull;&nbsp;
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 15" />
+      </svg>
+      12&nbsp;minutes
+      &nbsp;&bull;
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg>
+      2469&nbsp;words
+      
+        
+      
+    </h5>
+    
+
+    
+
+    <h2 id="introduction">Introduction</h2>
+<p>Wazuh is a solid open-source SIEM, but when it comes to SSO the documentation is thin. The official docs cover Keycloak, OneLogin and a few others but not Zitadel. There is even an <a href="https://github.com/wazuh/wazuh/issues/18630" target="_blank" rel="noopener">open issue</a>
+ requesting Zitadel support and it has been sitting there for a while.</p>
+<p>I run Zitadel as my identity provider and needed SAML-based SSO for my Wazuh Dashboard. The biggest pain point was that Zitadel does NOT include project roles in SAML assertions by default. Unlike OIDC where you get <code>urn:zitadel:iam:org:project:roles</code> for free, SAML gets nothing. You have to create a Zitadel Action to inject roles into the SAML response. Many people get stuck at this exact point — SSO login works but the user lands with zero permissions because the roles never arrive.</p>
+<p>This post covers the full integration end to end: generating the SP metadata XML, configuring Zitadel with the SAML app, injecting roles via Actions and Flows, mapping those roles to Wazuh permissions on both OpenSearch and the Wazuh Manager API layers, and the config files you need to touch.</p>
+<h2 id="how-it-works">How It Works</h2>
+<p>The SAML flow between the browser, Wazuh and Zitadel looks like this:</p>
+<pre tabindex="0"><code>User Browser
+    │
+    │  1. Access Wazuh Dashboard
+    ▼
+┌──────────────────────────┐
+│  Wazuh Dashboard         │
+│  (OpenSearch Security)   │
+│                          │
+│  Detects no session →    │
+│  Sends SAML AuthnRequest │
+└────────────┬─────────────┘
+             │
+             │  2. Redirect to Zitadel
+             ▼
+┌──────────────────────────┐
+│  Zitadel IdP             │
+│                          │
+│  User authenticates      │
+│  (password, MFA, etc.)   │
+└────────────┬─────────────┘
+             │
+             │  3. SAML Response (HTTP POST)
+             │     with roles in assertion
+             ▼
+┌──────────────────────────┐
+│  Wazuh ACS endpoint      │
+│  /_opendistro/           │
+│    _security/saml/acs    │
+│                          │
+│  Validates assertion     │
+│  Maps roles →            │
+│    all_access or         │
+│    kibana_read_only      │
+│                          │
+│  Creates session         │
+└──────────────────────────┘
+</code></pre><p>The critical piece in step 3 is that the SAML assertion must contain a <code>Roles</code> attribute with the user&rsquo;s project roles from Zitadel. Without that, OpenSearch has no idea what backend roles to assign and the user gets an empty session.</p>
+<h2 id="wazuhs-two-permission-layers">Wazuh&rsquo;s Two Permission Layers</h2>
+<p>This is something that trips people up. Wazuh has <strong>two separate permission layers</strong> and both need to be configured.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Layer</th>
+          <th>What It Controls</th>
+          <th>Where It&rsquo;s Configured</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>OpenSearch Security</strong> (port 9200)</td>
+          <td>Index and cluster access — read/write data, dashboards</td>
+          <td><code>roles_mapping.yml</code></td>
+      </tr>
+      <tr>
+          <td><strong>Wazuh Manager API</strong> (port 55000)</td>
+          <td>Application-level permissions — deploy agents, edit rules/decoders</td>
+          <td>Security rules via REST API</td>
+      </tr>
+  </tbody>
+</table>
+<p>If you only configure OpenSearch Security, users can log in and see dashboards but they cannot deploy agents, edit rules or do anything that hits the Wazuh Manager API. You need both.</p>
+<h3 id="role-mapping">Role Mapping</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Zitadel Role</th>
+          <th>Backend Role</th>
+          <th>OpenSearch Role</th>
+          <th>Access Level</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>wazuh-admins</code></td>
+          <td><code>wazuh-admins</code></td>
+          <td><code>all_access</code></td>
+          <td>Full index/cluster access</td>
+      </tr>
+      <tr>
+          <td><code>wazuh-readonly</code></td>
+          <td><code>wazuh-readonly</code></td>
+          <td><code>kibana_read_only</code></td>
+          <td>Read-only dashboards</td>
+      </tr>
+  </tbody>
+</table>
+<p>For the Wazuh Manager API layer:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Backend Role</th>
+          <th>Wazuh API Role</th>
+          <th>Access Level</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>wazuh-admins</code></td>
+          <td><code>administrator</code></td>
+          <td>Full app access (agent:create, rules, decoders, etc.)</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="step-1-generate-the-sp-metadata-xml">Step 1: Generate the SP Metadata XML</h2>
+<p>Wazuh does not expose a SAML metadata URL like some other service providers do. You have to create the metadata XML yourself and import it into Zitadel when creating the SAML application.</p>
+<p>Here is the SP metadata XML. Replace the URLs with your actual Wazuh Dashboard URL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;md:EntityDescriptor</span> <span style="color:#50fa7b">xmlns:md=</span><span style="color:#f1fa8c">&#34;urn:oasis:names:tc:SAML:2.0:metadata&#34;</span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#50fa7b">entityID=</span><span style="color:#f1fa8c">&#34;wazuh-saml&#34;</span><span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&lt;md:SPSSODescriptor</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">AuthnRequestsSigned=</span><span style="color:#f1fa8c">&#34;false&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">WantAssertionsSigned=</span><span style="color:#f1fa8c">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#50fa7b">protocolSupportEnumeration=</span><span style="color:#f1fa8c">&#34;urn:oasis:names:tc:SAML:2.0:protocol&#34;</span><span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;md:SingleLogoutService</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Binding=</span><span style="color:#f1fa8c">&#34;urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Location=</span><span style="color:#f1fa8c">&#34;https://wazuh.example.net/_opendistro/_security/saml/logout&#34;</span> <span style="color:#ff79c6">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;md:NameIDFormat&gt;</span>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified<span style="color:#ff79c6">&lt;/md:NameIDFormat&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;md:AssertionConsumerService</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Binding=</span><span style="color:#f1fa8c">&#34;urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Location=</span><span style="color:#f1fa8c">&#34;https://wazuh.example.net/_opendistro/_security/saml/acs&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">index=</span><span style="color:#f1fa8c">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">isDefault=</span><span style="color:#f1fa8c">&#34;true&#34;</span> <span style="color:#ff79c6">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;md:AssertionConsumerService</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Binding=</span><span style="color:#f1fa8c">&#34;urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">Location=</span><span style="color:#f1fa8c">&#34;https://wazuh.example.net/_opendistro/_security/saml/acs/idpinitiated&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">index=</span><span style="color:#f1fa8c">&#34;1&#34;</span> <span style="color:#ff79c6">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">&lt;/md:SPSSODescriptor&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;/md:EntityDescriptor&gt;</span>
+</span></span></code></pre></div><p>A few things to note:</p>
+<ul>
+<li><code>entityID</code> is <code>wazuh-saml</code>. This is the SP identifier and it has to match exactly in the OpenSearch security config later.</li>
+<li><code>WantAssertionsSigned=&quot;true&quot;</code> means Wazuh expects Zitadel to sign the assertion.</li>
+<li>There are two <code>AssertionConsumerService</code> entries. The first is the standard ACS for SP-initiated login. The second is for IdP-initiated login (index 1).</li>
+<li>The <code>SingleLogoutService</code> is included but we will strip it from the IdP metadata later to avoid logout redirect issues.</li>
+</ul>
+<p>Save this as <code>wazuh-sp-metadata.xml</code>.</p>
+<h2 id="step-2-configure-zitadel">Step 2: Configure Zitadel</h2>
+<h3 id="2a-create-roles-in-your-zitadel-project">2a. Create Roles in Your Zitadel Project</h3>
+<p>Go to <strong>Zitadel Console</strong> → <strong>Projects</strong> → select your project → <strong>Roles</strong> tab.</p>
+<p>Create two roles:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Key</th>
+          <th>Display Name</th>
+          <th>Group</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>wazuh-admins</code></td>
+          <td>Wazuh Administrators</td>
+          <td>wazuh</td>
+      </tr>
+      <tr>
+          <td><code>wazuh-readonly</code></td>
+          <td>Wazuh Read Only</td>
+          <td>wazuh</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="2b-create-the-saml-application">2b. Create the SAML Application</h3>
+<ol>
+<li>Go to <strong>Projects</strong> → your project → <strong>Applications</strong></li>
+<li>Click <strong>New</strong> → enter name: <code>Wazuh SIEM</code> → select <strong>SAML</strong> type → <strong>Continue</strong></li>
+<li>Choose <strong>Upload metadata XML</strong> and upload the <code>wazuh-sp-metadata.xml</code> from Step 1</li>
+<li>Click <strong>Continue</strong> → <strong>Create</strong></li>
+</ol>
+<h3 id="2c-assign-roles-to-users">2c. Assign Roles to Users</h3>
+<p>Go to <strong>Projects</strong> → your project → <strong>Authorizations</strong> → <strong>New</strong> → search for the user → select <code>wazuh-admins</code> or <code>wazuh-readonly</code> → <strong>Save</strong>.</p>
+<h3 id="2d-create-a-zitadel-action-for-saml-role-injection">2d. Create a Zitadel Action for SAML Role Injection</h3>
+<p>This is the part that most people miss and where hours of debugging happen.</p>
+<p>Zitadel does <strong>not</strong> send project roles in SAML assertions by default. With OIDC you add the <code>urn:zitadel:iam:org:project:roles</code> scope and roles show up in the token. SAML has no such mechanism. You must create a <strong>Zitadel Action</strong> that reads the user&rsquo;s granted roles and injects them as a custom SAML attribute.</p>
+<p>Go to <strong>Zitadel Console</strong> → <strong>Actions</strong> → click <strong>+ New</strong>.</p>
+<p><strong>Name:</strong> <code>addRolesToSAML</code> (this must match the function name in the script)</p>
+<p><strong>Script:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">function</span> addRolesToSAML(ctx, api) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> (ctx.v1.user.grants <span style="color:#ff79c6">==</span> <span style="color:#ff79c6">undefined</span> <span style="color:#ff79c6">||</span> ctx.v1.user.grants.count <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">let</span> roles <span style="color:#ff79c6">=</span> [];
+</span></span><span style="display:flex;"><span>    ctx.v1.user.grants.grants.forEach(grant =&gt; {
+</span></span><span style="display:flex;"><span>        grant.roles.forEach(role =&gt; {
+</span></span><span style="display:flex;"><span>            roles.push(role);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    api.v1.attributes.setCustomAttribute(<span style="color:#f1fa8c">&#39;Roles&#39;</span>, <span style="color:#f1fa8c">&#39;&#39;</span>, ...roles);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Click <strong>Save</strong>.</p>
+<p>What this does: It iterates over all project role grants for the authenticating user and pushes each role name into an array. Then it calls <code>setCustomAttribute('Roles', '', ...roles)</code> which adds a <code>Roles</code> attribute to the SAML assertion. The first argument is the attribute name, the second is the namespace (empty string works fine), and the rest are the values spread as individual arguments.</p>
+<h3 id="2e-attach-the-action-to-the-saml-flow">2e. Attach the Action to the SAML Flow</h3>
+<p>Still on the <strong>Actions</strong> page, go to the <strong>Flows</strong> section → click <strong>+ New</strong>.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Setting</th>
+          <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Flow Type</strong></td>
+          <td><code>Complement SAMLResponse</code></td>
+      </tr>
+      <tr>
+          <td><strong>Trigger Type</strong></td>
+          <td><code>Pre SAMLResponse creation</code></td>
+      </tr>
+      <tr>
+          <td><strong>Actions</strong></td>
+          <td>Check <code>addRolesToSAML</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>Click <strong>Save</strong>.</p>
+<p>This tells Zitadel to run the <code>addRolesToSAML</code> function every time it builds a SAML response, right before sending it back to the service provider. The roles will now appear in the assertion as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#ff79c6">&lt;saml:Attribute</span> <span style="color:#50fa7b">Name=</span><span style="color:#f1fa8c">&#34;Roles&#34;</span><span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">&lt;saml:AttributeValue&gt;</span>wazuh-admins<span style="color:#ff79c6">&lt;/saml:AttributeValue&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&lt;/saml:Attribute&gt;</span>
+</span></span></code></pre></div><h3 id="2f-verify-zitadel-configuration">2f. Verify Zitadel Configuration</h3>
+<p>After creating the app, make sure Zitadel&rsquo;s IdP metadata is accessible:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -s https://auth.example.net/saml/v2/metadata | head -5
+</span></span></code></pre></div><p>You should see an XML document starting with <code>&lt;md:EntityDescriptor&gt;</code>. Download this metadata — you will need it in the next step.</p>
+<h2 id="step-3-configure-opensearch-security">Step 3: Configure OpenSearch Security</h2>
+<p>This is the Wazuh side. You need to modify three files inside the Wazuh indexer node.</p>
+<h3 id="configyml--add-saml-auth-domain">config.yml — Add SAML Auth Domain</h3>
+<p>The OpenSearch security config lives at <code>/etc/wazuh-indexer/opensearch-security/config.yml</code>. You need to add a <code>saml_auth_domain</code> alongside the existing basic auth domain.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">_meta</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">type</span>: <span style="color:#f1fa8c">&#34;config&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">config_version</span>: <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">dynamic</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">anonymous_auth_enabled</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">authc</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">basic_internal_auth_domain</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">description</span>: <span style="color:#f1fa8c">&#34;Authenticate via HTTP Basic against internal users database&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">http_enabled</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">transport_enabled</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">http_authenticator</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">type</span>: <span style="color:#f1fa8c">&#34;basic&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">challenge</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">authentication_backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">type</span>: <span style="color:#f1fa8c">&#34;intern&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">saml_auth_domain</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">http_enabled</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">transport_enabled</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">order</span>: <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">http_authenticator</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">type</span>: saml
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">challenge</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">config</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">idp</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">metadata_file</span>: <span style="color:#f1fa8c">&#34;/etc/wazuh-indexer/opensearch-security/idp-metadata.xml&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">entity_id</span>: <span style="color:#f1fa8c">&#34;https://auth.example.net/saml/v2/metadata&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">sp</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">entity_id</span>: <span style="color:#f1fa8c">&#34;wazuh-saml&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#ff79c6">metadata_file</span>: <span style="color:#f1fa8c">&#34;/etc/wazuh-indexer/opensearch-security/sp-metadata.xml&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">kibana_url</span>: <span style="color:#f1fa8c">&#34;https://wazuh.example.net&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">roles_key</span>: <span style="color:#f1fa8c">&#34;Roles&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">exchange_key</span>: <span style="color:#f1fa8c">&#34;YOUR_64_CHAR_EXCHANGE_KEY_HERE&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">authentication_backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff79c6">type</span>: noop
+</span></span></code></pre></div><p>Key things:</p>
+<ul>
+<li><code>challenge: false</code> on basic auth and <code>challenge: true</code> on SAML. This means the dashboard shows both login options but SAML is the one that triggers the redirect.</li>
+<li><code>roles_key: &quot;Roles&quot;</code> must match exactly what the Zitadel Action sets via <code>setCustomAttribute('Roles', ...)</code>. If this does not match, roles will silently be empty.</li>
+<li><code>exchange_key</code> is a random 64-character hex string. Generate one with <code>openssl rand -hex 32</code>. This is used for encrypting the SAML exchange between the dashboard and the indexer.</li>
+<li><code>sp.entity_id: &quot;wazuh-saml&quot;</code> must match the <code>entityID</code> in your SP metadata XML.</li>
+<li><code>idp.entity_id</code> must match the <code>entityID</code> in Zitadel&rsquo;s IdP metadata.</li>
+</ul>
+<h3 id="strip-slo-endpoints-from-idp-metadata">Strip SLO Endpoints from IdP Metadata</h3>
+<p>Before placing the downloaded IdP metadata, remove the <code>SingleLogoutService</code> entries from it. If you leave them in, clicking logout in the Wazuh Dashboard will redirect you to Zitadel&rsquo;s logout page and you will not land back on the Wazuh login screen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Remove SLO endpoints from the downloaded IdP metadata</span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#f1fa8c">&#34;s|&lt;SingleLogoutService[^&gt;]*&gt;[^&lt;]*&lt;/SingleLogoutService&gt;||g&#34;</span> idp-metadata.xml
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#f1fa8c">&#34;s|&lt;SingleLogoutService[^/]*/&gt;[[:space:]]*||g&#34;</span> idp-metadata.xml
+</span></span></code></pre></div><p>Place both metadata files in the OpenSearch security directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp idp-metadata.xml /etc/wazuh-indexer/opensearch-security/idp-metadata.xml
+</span></span><span style="display:flex;"><span>cp wazuh-sp-metadata.xml /etc/wazuh-indexer/opensearch-security/sp-metadata.xml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chown wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/opensearch-security/idp-metadata.xml
+</span></span><span style="display:flex;"><span>chown wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/opensearch-security/sp-metadata.xml
+</span></span><span style="display:flex;"><span>chmod <span style="color:#bd93f9">0640</span> /etc/wazuh-indexer/opensearch-security/*.xml
+</span></span></code></pre></div><h3 id="roles_mappingyml--map-zitadel-roles-to-opensearch-roles">roles_mapping.yml — Map Zitadel Roles to OpenSearch Roles</h3>
+<p>You need to add your Zitadel backend roles to the <code>all_access</code> and <code>kibana_read_only</code> role mappings. Find the <code>all_access</code> section in <code>/etc/wazuh-indexer/opensearch-security/roles_mapping.yml</code> and add <code>wazuh-admins</code> to <code>backend_roles</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff79c6">all_access</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">reserved</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hidden</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">backend_roles</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f1fa8c">&#34;admin&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f1fa8c">&#34;wazuh-admins&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">description</span>: <span style="color:#f1fa8c">&#34;Maps admin to all_access&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">kibana_read_only</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">reserved</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hidden</span>: <span style="color:#ff79c6">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">backend_roles</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f1fa8c">&#34;wazuh-readonly&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">hosts</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">users</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">and_backend_roles</span>: []
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">description</span>: <span style="color:#f1fa8c">&#34;Maps wazuh-readonly to kibana_read_only&#34;</span>
+</span></span></code></pre></div><p><strong>Important:</strong> Set <code>reserved: false</code> on <code>all_access</code>. By default it is <code>reserved: true</code> and you cannot modify it.</p>
+<h3 id="apply-changes-with-securityadmin">Apply Changes with securityadmin</h3>
+<p>After modifying the config files, you must run <code>securityadmin</code> to push the changes into the OpenSearch security index:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">JAVA_HOME</span><span style="color:#ff79c6">=</span>/usr/share/wazuh-indexer/jdk/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Apply config.yml</span>
+</span></span><span style="display:flex;"><span>bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -f /etc/wazuh-indexer/opensearch-security/config.yml <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -icl <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -key /etc/wazuh-indexer/certs/admin-key.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -cert /etc/wazuh-indexer/certs/admin.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -cacert /etc/wazuh-indexer/certs/root-ca.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -h localhost -nhnv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Apply roles_mapping.yml</span>
+</span></span><span style="display:flex;"><span>bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/securityadmin.sh <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -f /etc/wazuh-indexer/opensearch-security/roles_mapping.yml <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -icl <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -key /etc/wazuh-indexer/certs/admin-key.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -cert /etc/wazuh-indexer/certs/admin.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -cacert /etc/wazuh-indexer/certs/root-ca.pem <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -h localhost -nhnv
+</span></span></code></pre></div><p>If <code>securityadmin</code> fails, check that the admin certificates exist and that the Wazuh indexer is running.</p>
+<h2 id="step-4-configure-the-wazuh-dashboard">Step 4: Configure the Wazuh Dashboard</h2>
+<p>Edit <code>/etc/wazuh-dashboard/opensearch_dashboards.yml</code> and add the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#6272a4"># SAML SSO</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">opensearch_security.auth.multiple_auth_enabled</span>: <span style="color:#ff79c6">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">opensearch_security.auth.type</span>: [<span style="color:#f1fa8c">&#34;basicauth&#34;</span>,<span style="color:#f1fa8c">&#34;saml&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">server.xsrf.allowlist</span>: [<span style="color:#f1fa8c">&#34;/_opendistro/_security/saml/acs&#34;</span>, <span style="color:#f1fa8c">&#34;/_opendistro/_security/saml/logout&#34;</span>, <span style="color:#f1fa8c">&#34;/_opendistro/_security/saml/acs/idpinitiated&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">opensearch_security.auth.logout_url</span>: <span style="color:#f1fa8c">&#34;https://wazuh.example.net&#34;</span>
+</span></span></code></pre></div><ul>
+<li><code>multiple_auth_enabled: true</code> lets both basic auth and SAML appear on the login page.</li>
+<li>The <code>xsrf.allowlist</code> entries are required because the SAML ACS endpoint receives POST requests from the IdP and they would be blocked by XSRF protection otherwise.</li>
+<li><code>logout_url</code> is where users land after clicking logout. Without this, logout sends you to the IdP.</li>
+</ul>
+<p>Also edit <code>/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml</code> and set <code>run_as: true</code> on the Wazuh API host entry. This allows the dashboard to forward the authenticated user&rsquo;s backend roles to the Wazuh Manager API for role-based access.</p>
+<p>Then restart the dashboard:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart wazuh-dashboard
+</span></span></code></pre></div><h2 id="step-5-create-the-wazuh-manager-api-security-rule">Step 5: Create the Wazuh Manager API Security Rule</h2>
+<p>This is the second permission layer. Even if OpenSearch grants <code>all_access</code>, the Wazuh Manager API needs its own mapping from <code>wazuh-admins</code> to the <code>administrator</code> role. Without this, SSO users can see dashboards but cannot deploy agents, edit rules or access the API features.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Authenticate to the Wazuh Manager API</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">TOKEN</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>curl -sk -u <span style="color:#f1fa8c">&#34;wazuh-wui:YOUR_API_PASSWORD&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -X POST https://localhost:55000/security/user/authenticate <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  | python3 -c <span style="color:#f1fa8c">&#34;import sys,json; print(json.load(sys.stdin)[&#39;data&#39;][&#39;token&#39;])&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Create a security rule: wazuh-admins backend_role → administrator</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">RULE_ID</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>curl -sk <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -H <span style="color:#f1fa8c">&#34;Authorization: Bearer </span><span style="color:#8be9fd;font-style:italic">$TOKEN</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -H <span style="color:#f1fa8c">&#34;Content-Type: application/json&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -X POST https://localhost:55000/security/rules <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -d <span style="color:#f1fa8c">&#39;{&#34;name&#34;: &#34;wui_wazuh_admins&#34;, &#34;rule&#34;: {&#34;FIND&#34;: {&#34;backend_roles&#34;: &#34;wazuh-admins&#34;}}}&#39;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  | python3 -c <span style="color:#f1fa8c">&#34;import sys,json; print(json.load(sys.stdin)[&#39;data&#39;][&#39;affected_items&#39;][0][&#39;id&#39;])&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Link the rule to the administrator role (role ID 1)</span>
+</span></span><span style="display:flex;"><span>curl -sk <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -H <span style="color:#f1fa8c">&#34;Authorization: Bearer </span><span style="color:#8be9fd;font-style:italic">$TOKEN</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -H <span style="color:#f1fa8c">&#34;Content-Type: application/json&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  -X POST <span style="color:#f1fa8c">&#34;https://localhost:55000/security/roles/1/rules?rule_ids=</span><span style="color:#8be9fd;font-style:italic">$RULE_ID</span><span style="color:#f1fa8c">&#34;</span>
+</span></span></code></pre></div><p>Verify the rules:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sk -H <span style="color:#f1fa8c">&#34;Authorization: Bearer </span><span style="color:#8be9fd;font-style:italic">$TOKEN</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#f1fa8c">\
+</span></span></span><span style="display:flex;"><span>  https://localhost:55000/security/rules | python3 -m json.tool
+</span></span></code></pre></div><p>You should see <code>wui_elastic_admin</code>, <code>wui_opensearch_admin</code> and your new <code>wui_wazuh_admins</code> rule, all linked to role 1 (administrator).</p>
+<h2 id="step-6-test">Step 6: Test</h2>
+<ol>
+<li>Open an incognito window</li>
+<li>Navigate to your Wazuh Dashboard URL</li>
+<li>You should see both a basic auth login form and a <strong>Log in with single sign-on</strong> button</li>
+<li>Click the SSO button — Zitadel login page appears</li>
+<li>Authenticate with your Zitadel credentials (password, MFA, etc.)</li>
+<li>You should be redirected back to the Wazuh Dashboard, logged in with full permissions</li>
+</ol>
+<p>If all went well, you are done. If not, read on.</p>
+<h2 id="files-modified--summary">Files Modified — Summary</h2>
+<table>
+  <thead>
+      <tr>
+          <th>File</th>
+          <th>Change</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>/etc/wazuh-indexer/opensearch-security/config.yml</code></td>
+          <td>Added <code>saml_auth_domain</code>, set basic auth <code>challenge: false</code></td>
+      </tr>
+      <tr>
+          <td><code>/etc/wazuh-indexer/opensearch-security/roles_mapping.yml</code></td>
+          <td>Added <code>wazuh-admins</code> → <code>all_access</code>, <code>wazuh-readonly</code> → <code>kibana_read_only</code></td>
+      </tr>
+      <tr>
+          <td><code>/etc/wazuh-indexer/opensearch-security/idp-metadata.xml</code></td>
+          <td>Zitadel IdP metadata (downloaded, SLO stripped)</td>
+      </tr>
+      <tr>
+          <td><code>/etc/wazuh-indexer/opensearch-security/sp-metadata.xml</code></td>
+          <td>Wazuh SP metadata (generated)</td>
+      </tr>
+      <tr>
+          <td><code>/etc/wazuh-dashboard/opensearch_dashboards.yml</code></td>
+          <td>Added SAML auth type, XSRF allowlist, logout URL</td>
+      </tr>
+      <tr>
+          <td><code>/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml</code></td>
+          <td>Set <code>run_as: true</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="sso-button-not-showing-on-the-login-page">SSO button not showing on the login page</h3>
+<p>The dashboard config is missing the SAML settings. Check that <code>opensearch_dashboards.yml</code> has all four SAML lines from Step 4 and restart the dashboard.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -A2 <span style="color:#f1fa8c">&#39;auth.type&#39;</span> /etc/wazuh-dashboard/opensearch_dashboards.yml
+</span></span><span style="display:flex;"><span>systemctl restart wazuh-dashboard
+</span></span></code></pre></div><h3 id="invalid-saml-response-or-redirect-loop">&ldquo;Invalid SAML response&rdquo; or redirect loop</h3>
+<p>Entity ID mismatch. The <code>sp.entity_id</code> in <code>config.yml</code> must match the <code>entityID</code> in the SP metadata you imported into Zitadel. The <code>idp.entity_id</code> must match what Zitadel returns in its metadata. Check the OpenSearch logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -100 /var/log/wazuh-indexer/wazuh-cluster.log | grep -i saml
+</span></span></code></pre></div><h3 id="sso-login-works-but-user-has-no-permissions-backend_roles">SSO login works but user has no permissions (backend_roles=[])</h3>
+<p>This is the most common issue. It means the Zitadel Action is either not created, not attached to the SAML flow, or the user does not have a role grant in the project.</p>
+<p>Checklist:</p>
+<ol>
+<li>The Action function name <code>addRolesToSAML</code> matches the Action name in Zitadel</li>
+<li>The Action is attached to Flow <code>Complement SAMLResponse</code> → Trigger <code>Pre SAMLResponse creation</code></li>
+<li>The user has a role authorization in <strong>Projects</strong> → your project → <strong>Authorizations</strong></li>
+<li>The <code>roles_key</code> in <code>config.yml</code> is set to <code>Roles</code> (capital R) matching the Action&rsquo;s <code>setCustomAttribute('Roles', ...)</code></li>
+</ol>
+<p>To debug, enable SAML logging temporarily:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;logger.com.amazon.dlic.auth.http.saml: debug&#34;</span> &gt;&gt; /etc/wazuh-indexer/opensearch.yml
+</span></span><span style="display:flex;"><span>systemctl restart wazuh-indexer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Try an SSO login, then check logs</span>
+</span></span><span style="display:flex;"><span>grep -i <span style="color:#f1fa8c">&#34;SAMLResponse\|Token&#34;</span> /var/log/wazuh-indexer/wazuh-cluster.log | tail -20
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Clean up after debugging</span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#f1fa8c">&#34;/^logger.com.amazon.dlic.auth.http.saml/d&#34;</span> /etc/wazuh-indexer/opensearch.yml
+</span></span><span style="display:flex;"><span>systemctl restart wazuh-indexer
+</span></span></code></pre></div><h3 id="sso-login-works-but-user-cannot-deploy-agents-or-edit-rules">SSO login works but user cannot deploy agents or edit rules</h3>
+<p>This means OpenSearch Security (Layer 1) is fine but the Wazuh Manager API (Layer 2) is not configured. Go back to Step 5 and create the security rule mapping <code>wazuh-admins</code> to the administrator role.</p>
+<p>You can verify by checking the API logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#f1fa8c">&#34;run_as&#34;</span> /var/ossec/logs/api.log | tail -5
+</span></span></code></pre></div><p>Look for <code>backend_roles: [&quot;wazuh-admins&quot;]</code> in the log entries. If <code>backend_roles</code> is empty, the roles are not arriving from the SAML assertion.</p>
+<h3 id="logout-redirects-to-zitadel-and-does-not-come-back">Logout redirects to Zitadel and does not come back</h3>
+<p>The IdP metadata still has <code>SingleLogoutService</code> entries. Strip them as shown in Step 3, re-push the metadata and restart the indexer. Also make sure <code>opensearch_security.auth.logout_url</code> is set in the dashboard config.</p>
+<h3 id="basic-auth-internal-users-stopped-working">Basic auth (internal users) stopped working</h3>
+<p>It should not. The config preserves basic auth as order 0 with <code>challenge: false</code>. The dashboard is set to <code>[&quot;basicauth&quot;,&quot;saml&quot;]</code> so both login methods appear. If basic auth broke, check that the <code>basic_internal_auth_domain</code> section is still present in <code>config.yml</code> and re-run <code>securityadmin</code>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The hardest part of this integration is not the SAML config itself — that is mostly standard OpenSearch Security stuff. The hard part is getting roles into the SAML assertion from Zitadel. The Action + Flow combination is not documented anywhere in the context of Wazuh, and without it the whole thing silently fails. Then the dual permission layer in Wazuh (OpenSearch Security + Manager API) adds another place where things can go wrong.</p>
+<p>Once you get these two pieces right, it works well. Users log in via Zitadel, roles flow through the SAML assertion into OpenSearch backend roles, and from there into the Wazuh Manager API permissions. Both basic auth and SSO coexist on the login page so you always have a fallback.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>Part of this post was assisted by AI. You may need to modify Wazuh/Zitadel config changes according to your current infrastructure</p>
+
+    <div id="disqus-notice" class="dark:bg-gray-800 dark:text-gray-200" style="text-align: center; padding: 1.5rem; margin-top: 2rem; border: 1px solid #e0e0e0; border-radius: 8px;">
+  <p style="margin-bottom: 0.5rem; font-size: 1.1rem;">
+    💬 Show comments
+  </p>
+  <p style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;">
+    ⚠️ Comments are powered by Disqus. You may see ads in the comments section.
+  </p>
+  <button id="disqus-load-btn" onclick="loadDisqusComments()"
+     style="display: inline-block; padding: 0.6rem 1.5rem; background-color: #2e9fff; color: #fff; border: none; cursor: pointer; border-radius: 6px; font-weight: 500; font-size: 1rem;">
+    Show comments
+  </button>
+</div>
+<div id="disqus_thread" style="display: none; margin-top: 1rem;"></div>
+<script>
+  function loadDisqusComments() {
+    document.getElementById('disqus-notice').style.display = 'none';
+    document.getElementById('disqus_thread').style.display = 'block';
+    var d = document, s = d.createElement('script');
+    s.src = 'https://harshanu-space.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  </article><div class="bg-blue-100 dark:bg-gray-900">
+  <div class="container px-4 py-12 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div>
+      <div class="text-2xl font-bold mb-2">Follow us</div>
+      <p class="opacity-60">We share photos, videos, and stories from our travels, hikes, and cycling trips. Follow us to see where we&#39;re going next!</p>
+    </div>
+
+    <ul class="flex justify-center gap-x-3 flex-wrap gap-y-2">
+      
+    </ul>
+  </div>
+</div>
+
+    </main><footer class="container p-6 mx-auto flex justify-between items-center">
+  <span class="text-sm font-light">
+    
+    Copyright © 2022 - Harshanu · All rights reserved
+    
+  </span>
+  <span onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 15l-6 -6l-6 6h12" />
+    </svg>
+  </span>
+</footer>
+
+<div class="search-ui absolute top-0 left-0 w-full h-full bg-white dark:bg-gray-800 hidden">
+  <div class="container max-w-3xl mx-auto p-12">
+    <div class="relative">
+      <div class="my-4 text-center text-2xl font-bold">Search</div>
+
+      <span class="p-2 absolute right-0 top-0 cursor-pointer close-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </div>
+
+    <input type="search" class="py-2 px-3 w-full dark:text-black border dark:border-transparent"
+      placeholder="Enter search query" />
+
+    <div class="search-results text-lg font-medium my-4 hidden">Results</div>
+    <ul class="search-list my-2">
+
+    </ul>
+
+    <div class="no-results text-center my-8 hidden">
+      <div class="text-xl font-semibold mb-2">No results found</div>
+      <p class="font-light text-sm">Try adjusting your search query</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://harshanu.space/js/scripts.min.js"></script>
+
+
+
+
+
+
+<script>
+  
+  const darkmode = document.querySelector('.toggle-dark-mode');
+  function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkmode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkmode', 'dark')
+    }
+  }
+  if (darkmode) {
+    darkmode.addEventListener('click', toggleDarkMode);
+  }
+
+  const darkStorage = localStorage.getItem('darkmode');
+  const isBrowserDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (!darkStorage && isBrowserDark) {
+    document.documentElement.classList.add('dark');
+  }
+
+  if (darkStorage && darkStorage === 'dark') {
+    toggleDarkMode();
+  }
+</script>
+
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const mobileMenu = document.querySelector('.mobile-menu')
+  function toggleMenu() {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  }
+  if(mobileMenu && mobileMenuButton){
+    mobileMenuButton.addEventListener('click', toggleMenu)
+  }
+</script>
+</body>
+</html>

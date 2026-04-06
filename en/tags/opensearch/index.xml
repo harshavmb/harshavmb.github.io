@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opensearch on Harshanu</title>
+    <link>https://harshanu.space/en/tags/opensearch/</link>
+    <description>Recent content in Opensearch on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/opensearch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wazuh SSO with Zitadel using SAML 2.0</title>
+      <link>https://harshanu.space/en/tech/wazuh-zitadel-sso/</link>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/wazuh-zitadel-sso/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Wazuh is a solid open-source SIEM, but when it comes to SSO the documentation is thin. The official docs cover Keycloak, OneLogin and a few others but not Zitadel. There is even an &lt;a href=&#34;https://github.com/wazuh/wazuh/issues/18630&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;open issue&lt;/a&gt;&#xA; requesting Zitadel support and it has been sitting there for a while.&lt;/p&gt;&#xA;&lt;p&gt;I run Zitadel as my identity provider and needed SAML-based SSO for my Wazuh Dashboard. The biggest pain point was that Zitadel does NOT include project roles in SAML assertions by default. Unlike OIDC where you get &lt;code&gt;urn:zitadel:iam:org:project:roles&lt;/code&gt; for free, SAML gets nothing. You have to create a Zitadel Action to inject roles into the SAML response. Many people get stuck at this exact point — SSO login works but the user lands with zero permissions because the roles never arrive.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
