@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.svg">
+
+  <title>
+  Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea - Harshanu
+  </title>
+  <meta name="description" content="Supabase is blocked in India. Desperate vibecoders are routing all their API traffic through third-party proxies like JioBase. Here is why that is a security disaster and what you should do instead." />
+  <meta name="author" content="Harshanu" />
+  <meta name="generator" content="Hugo 0.155.2"><link
+    rel="stylesheet"
+    href="https://harshanu.space/css/styles.min.5100ae37b4f01d286e6fbf85859b8ae48eeab3031f9846f39fd3fff69942cb02.css"
+    integrity="sha256-UQCuN7TwHShub7+FhZuK5I7qswMfmEbzn9P/9plCywI="
+  />
+  
+  
+
+  <meta property="og:url" content="https://harshanu.space/en/tech/dumb-vibe-coders/">
+  <meta property="og:site_name" content="Harshanu">
+  <meta property="og:title" content="Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea">
+  <meta property="og:description" content="Supabase is blocked in India. Desperate vibecoders are routing all their API traffic through third-party proxies like JioBase. Here is why that is a security disaster and what you should do instead.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:tag" content="Supabase">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Proxy">
+    <meta property="article:tag" content="Jiobase">
+    <meta property="article:tag" content="India">
+    <meta property="article:tag" content="Pocketbase">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea">
+  <meta name="twitter:description" content="Supabase is blocked in India. Desperate vibecoders are routing all their API traffic through third-party proxies like JioBase. Here is why that is a security disaster and what you should do instead.">
+
+  
+  <meta itemprop="name" content="Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea">
+  <meta itemprop="description" content="Supabase is blocked in India. Desperate vibecoders are routing all their API traffic through third-party proxies like JioBase. Here is why that is a security disaster and what you should do instead.">
+  <meta itemprop="datePublished" content="2026-03-01T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-03-01T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2802">
+  <meta itemprop="keywords" content="Supabase,Security,Proxy,Jiobase,India,Pocketbase,Self-Hosted,Vibecoding,Dns,Tls">
+
+  
+  <meta name="lang" content="en" />
+  
+</head>
+<body class="dark:bg-gray-800 dark:text-white relative flex flex-col min-h-screen"><header class="container flex justify-between md:justify-between gap-4 flex-wrap p-6 mx-auto relative">
+  <a href="https://harshanu.space/en/" class="capitalize font-extrabold text-2xl">
+    
+    Harshanu
+    
+  </a>
+  <button class="mobile-menu-button md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <line x1="4" y1="8" x2="20" y2="8" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+    </svg>
+  </button>
+  <ul class="mobile-menu absolute z-10 px-6 pb-6 md:p-0 top-full left-0 w-full md:w-auto md:relative hidden md:flex flex-col md:flex-row items-end md:items-center gap-4 lg:gap-6 bg-white dark:bg-gray-800">
+
+    
+    <li><a href="/en/tech">Tech</a></li>
+    
+    <li><a href="/en/blog">Blog</a></li>
+    
+    <li><a href="/en/page/about/">About</a></li>
+    
+    <li><a href="/en/tags">Tags</a></li>
+    
+    <li><a href="/en/blog/marriage/">Top Post</a></li>
+    
+
+    
+    
+    <li class="flex items-center">
+      
+      
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3.6" y1="9" x2="20.4" y2="9" />
+        <line x1="3.6" y1="15" x2="20.4" y2="15" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a17 17 0 0 1 0 18" />
+      </svg>
+      <a href="/de" lang="de">Deutsch</a>
+      
+      
+    </li>
+    
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="toggle-dark-mode inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    </li>
+    
+  </ul>
+</header>
+<main class="flex-1">
+  
+  
+
+  
+  <div class="relative max-w-5xl mx-auto px-4">
+    <img src="https://photos.harshanu.space/api/v1/t/524846017ea5a4d144fd424b8c6b9d1a24a1d206/081gaa0s/fit_2048" class="rounded-lg shadow-sm w-full object-contain" />
+    
+    <div class="absolute top-4 right-8 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-2 py-0.5">
+      
+  
+    March 1, 2026
+  
+
+
+    </div>
+    
+  </div>
+  
+
+  <article class="prose lg:prose-lg mx-auto my-8 dark:prose-dark px-4">
+
+    <h1 class="text-2xl font-bold mb-2">Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea</h1>
+    
+    <h5 class="text-sm flex items-center flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="4" y1="11" x2="20" y2="11" />
+        <rect x="8" y="15" width="2" height="2" />
+      </svg>
+      Posted on 
+  
+    March 1, 2026
+  
+
+
+      
+        &nbsp;&bull;&nbsp;
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 15" />
+      </svg>
+      14&nbsp;minutes
+      &nbsp;&bull;
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg>
+      2802&nbsp;words
+      
+        
+      
+    </h5>
+    
+
+    
+
+    <h2 id="introduction">Introduction</h2>
+<p>On February 24, 2026, Indian ISPs including Jio, Airtel, and ACT Fibernet started DNS-blocking <code>*.supabase.co</code> following a government order under Section 69A of the IT Act. Every Supabase-powered app in India broke overnight. REST queries, auth flows, file uploads, realtime WebSocket connections, all started timing out with <code>ERR_CONNECTION_TIMED_OUT</code>. The Supabase dashboard at <code>supabase.com</code> still works. The API domain <code>supabase.co</code> does not.</p>
+<p>Thousands of developers panicked. Many of them are vibecoders, people who build apps by prompting AI to generate code without fully understanding what happens under the hood. They know how to <code>createClient()</code> but not how DNS resolution or TLS handshakes work.</p>
+<p>Within days, a proxy service called <a href="https://jiobase.com/" target="_blank" rel="noopener">JioBase</a>
+ appeared. Built by an indie developer named Sunith VS from Kerala, it promises to fix the problem with a one-line code change. Replace <code>xyz.supabase.co</code> with <code>xyz.jiobase.com</code> and your app works again. It even has a polished landing page, docs, a dashboard, and 15 blog posts about DNS poisoning. The <a href="https://github.com/sunithvs/jiobase" target="_blank" rel="noopener">codebase</a>
+ is open source. Sounds great.</p>
+<p>It is not great. It is a security disaster waiting to happen.</p>
+<p>This post explains why routing your production Supabase traffic through any third-party proxy is dangerous, what exactly is at risk, and what you should do instead.</p>
+<h2 id="how-the-block-works">How the Block Works</h2>
+<p>Before diving into the proxy problem, it helps to understand the block itself. Indian ISPs are using DNS poisoning to block Supabase. When your app tries to resolve <code>yourproject.supabase.co</code>, the ISP&rsquo;s DNS resolver intercepts the query and returns a sinkhole IP (commonly <code>49.44.79.236</code>) instead of Supabase&rsquo;s actual IP address. The request goes to a dead-end and times out.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># On an affected ISP (poisoned DNS)</span>
+</span></span><span style="display:flex;"><span>$ nslookup yourproject.supabase.co
+</span></span><span style="display:flex;"><span>Address: 49.44.79.236        ← sinkhole, NOT Supabase
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># On Cloudflare DNS (correct)</span>
+</span></span><span style="display:flex;"><span>$ nslookup yourproject.supabase.co 1.1.1.1
+</span></span><span style="display:flex;"><span>Address: 104.18.x.x          ← real Supabase IP
+</span></span></code></pre></div><p>Some ISPs also perform Deep Packet Inspection (DPI), inspecting the SNI field in the TLS handshake. Even if you bypass DNS poisoning by using <code>1.1.1.1</code>, the ISP sees <code>supabase.co</code> in the SNI and drops the connection. This is why simply changing DNS does not reliably fix the problem for end users.</p>
+<p>A reverse proxy solves this because the client connects to <code>yourapp.jiobase.com</code> (or your own domain), and the ISP never sees <code>supabase.co</code> in any DNS query or TLS handshake. The proxy forwards the request to Supabase on the server side, outside the ISP&rsquo;s reach.</p>
+<p>The technical approach is sound. The problem is <em>who</em> runs the proxy.</p>
+<h2 id="how-jiobase-works">How JioBase Works</h2>
+<p>JioBase is a managed reverse proxy running on Cloudflare Workers. The <a href="https://github.com/sunithvs/jiobase" target="_blank" rel="noopener">source code</a>
+ shows three apps: a web frontend (Svelte), an API (Hono on Cloudflare Workers), and the proxy worker itself. Here is the flow:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Your App / Browser<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>        | HTTPS <span style="color:#ff79c6">(</span>SNI: yourapp.jiobase.com<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">[</span>Cloudflare Edge<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>        | TLS terminated here
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">[</span>JioBase Proxy Worker<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>        | HTTPS <span style="color:#ff79c6">(</span>new connection to Supabase<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>        |
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">[</span>Supabase API<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>        | <span style="color:#ff79c6">(</span>*.supabase.co<span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p>You sign up, paste your Supabase project URL, pick a slug, and get <code>yourapp.jiobase.com</code>. You replace the URL in your Supabase client initialization. The proxy forwards everything: REST, Auth, Storage, Realtime WebSockets, Edge Functions, GraphQL.</p>
+<p>Looking at the <a href="https://github.com/sunithvs/jiobase/blob/main/apps/proxy/src/handler.ts" target="_blank" rel="noopener">handler.ts</a>
+, the proxy:</p>
+<ol>
+<li>Receives the incoming request</li>
+<li>Rewrites the URL to point at your Supabase project</li>
+<li>Copies all headers (including <code>Authorization</code> with your JWT)</li>
+<li>Forwards the request body verbatim</li>
+<li>Returns the response with an <code>X-Proxied-By: JioBase</code> header</li>
+<li>Writes analytics data (app ID, HTTP method, path, country, status code)</li>
+</ol>
+<p>The <a href="https://github.com/sunithvs/jiobase/blob/main/apps/proxy/src/websocket.ts" target="_blank" rel="noopener">websocket.ts</a>
+ does the same for WebSocket connections, relaying messages bidirectionally between client and Supabase.</p>
+<p>The service claims it does not log, inspect, or store transit data. Their <a href="https://jiobase.com/privacy" target="_blank" rel="noopener">privacy policy</a>
+ says so. Their <a href="https://jiobase.com/terms" target="_blank" rel="noopener">terms page</a>
+ says so. The open source code appears to confirm it.</p>
+<p>Now let me explain why none of that matters.</p>
+<h2 id="the-security-problems">The Security Problems</h2>
+<h3 id="1-tls-termination-your-data-is-decrypted-at-the-proxy">1. TLS Termination: Your Data Is Decrypted at the Proxy</h3>
+<p>This is the most fundamental issue and the one most vibecoders do not understand. When your app sends an HTTPS request to <code>yourapp.jiobase.com</code>, TLS is terminated at Cloudflare&rsquo;s edge. This means the request is <strong>decrypted in memory</strong> at the proxy layer before being re-encrypted and forwarded to Supabase.</p>
+<p>JioBase&rsquo;s own privacy policy admits this:</p>
+<blockquote>
+<p><em>&ldquo;TLS disclosure: Cloudflare terminates TLS at the edge as part of its standard infrastructure. This means Transit Data is briefly decrypted in Cloudflare&rsquo;s memory during forwarding.&rdquo;</em></p>
+</blockquote>
+<p>This is how all reverse proxies work. It is not unique to JioBase. But it means that <strong>everything your app sends to Supabase passes through the proxy in plaintext</strong>. Every database query, every auth token, every file upload, every WebSocket message. The proxy operator (and Cloudflare) have technical access to all of it at the moment of forwarding.</p>
+<h3 id="2-your-supabase-jwt-tokens-flow-through-the-proxy">2. Your Supabase JWT Tokens Flow Through the Proxy</h3>
+<p>Every authenticated request to Supabase includes an <code>Authorization: Bearer &lt;JWT&gt;</code> header. This JWT contains user identity, role, and session information. The proxy forwards this header verbatim to Supabase:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#6272a4">// From JioBase&#39;s handler.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">const</span> headers <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Headers(request.headers);
+</span></span><span style="display:flex;"><span>headers.<span style="color:#ff79c6">set</span>(<span style="color:#f1fa8c">&#39;Host&#39;</span>, upstreamUrl.hostname);
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">// ... Authorization header is NOT stripped
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4">// It passes straight through to Supabase
+</span></span></span></code></pre></div><p>Anyone with the ability to log or inspect these headers at the proxy layer can:</p>
+<ul>
+<li><strong>Impersonate any user</strong> of your application by replaying their JWT</li>
+<li><strong>Access any data</strong> the user has permission to read or write</li>
+<li><strong>Perform actions</strong> as the user (create, update, delete records)</li>
+<li><strong>Exfiltrate refresh tokens</strong> to maintain long-term access</li>
+</ul>
+<p>JWTs typically expire in 1 hour for Supabase, but refresh tokens last much longer. If a refresh token is captured, the attacker can mint new access tokens indefinitely until the user&rsquo;s session is explicitly revoked.</p>
+<h3 id="3-your-supabase-anon-key-is-exposed">3. Your Supabase Anon Key Is Exposed</h3>
+<p>When you initialize the Supabase client, you pass the anon key:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#ff79c6">const</span> supabase <span style="color:#ff79c6">=</span> createClient(
+</span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#39;https://myapp.jiobase.com&#39;</span>,  <span style="color:#6272a4">// proxy URL
+</span></span></span><span style="display:flex;"><span>  <span style="color:#f1fa8c">&#39;your-anon-key&#39;</span>               <span style="color:#6272a4">// this key is sent with EVERY request
+</span></span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>The anon key is sent as the <code>apikey</code> header with every request. It passes through the proxy in plaintext. While the anon key is designed to be public-facing, it defines the baseline permissions for your project. Combined with the ability to capture user JWTs, an attacker has everything needed to interact with your Supabase project as any user.</p>
+<p>If you use the <strong>service role key</strong> anywhere in client-side code (which you should never do, but vibecoders sometimes do because the AI told them to), that key also passes through the proxy. The service role key bypasses Row Level Security entirely.</p>
+<h3 id="4-all-your-users-pii-flows-through-the-proxy">4. All Your Users&rsquo; PII Flows Through the Proxy</h3>
+<p>Think about what your Supabase queries contain:</p>
+<ul>
+<li><strong>Auth endpoints</strong>: Email addresses, passwords (during signup/signin), phone numbers, OAuth tokens from Google/GitHub/etc.</li>
+<li><strong>Database queries</strong>: Names, addresses, payment info, health data, whatever your app stores</li>
+<li><strong>Storage uploads</strong>: Profile photos, documents, ID cards, anything users upload</li>
+<li><strong>Realtime messages</strong>: Chat messages, presence data, live notifications</li>
+</ul>
+<p>All of this data passes through JioBase&rsquo;s Cloudflare Worker in plaintext during TLS termination. Even if JioBase&rsquo;s code does not log it today, there is no technical guarantee it will not log it tomorrow.</p>
+<h3 id="5-open-source-does-not-mean-safe">5. Open Source Does Not Mean Safe</h3>
+<p>JioBase&rsquo;s code is <a href="https://github.com/sunithvs/jiobase" target="_blank" rel="noopener">on GitHub</a>
+. That is good. But here is the problem: <strong>you have no way to verify that the code on GitHub is the same code running on Cloudflare Workers</strong>.</p>
+<p>There is no reproducible build. There is no deployment attestation. There is no way for you to verify what is actually executing when your traffic hits <code>jiobase.com</code>. The operator could deploy a version with an extra line that logs every <code>Authorization</code> header to a private endpoint, and you would never know.</p>
+<p>This is not a JioBase-specific problem. It applies to every hosted service. But it is especially dangerous when that service sees all your authentication tokens and user data, while having no audit trail, no SOC 2 certification, no bug bounty program, and no legal entity beyond a single individual developer.</p>
+<h3 id="6-analytics-already-track-request-metadata">6. Analytics Already Track Request Metadata</h3>
+<p>The proxy code already writes analytics data on every request:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>env.ANALYTICS.writeDataPoint({
+</span></span><span style="display:flex;"><span>  blobs<span style="color:#ff79c6">:</span> [
+</span></span><span style="display:flex;"><span>    config.appId,
+</span></span><span style="display:flex;"><span>    request.method,
+</span></span><span style="display:flex;"><span>    url.pathname,
+</span></span><span style="display:flex;"><span>    request.headers.<span style="color:#ff79c6">get</span>(<span style="color:#f1fa8c">&#39;cf-ipcountry&#39;</span>) <span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#39;unknown&#39;</span>,
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  doubles<span style="color:#ff79c6">:</span> [upstreamResponse.status],
+</span></span><span style="display:flex;"><span>  indexes<span style="color:#ff79c6">:</span> [config.appId],
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>This logs your app ID, the HTTP method, the full URL path (which often contains table names and query parameters), the user&rsquo;s country, and the response status code. The path alone can reveal which tables your users are querying and with what filters. This is metadata, not payload, but it is still far more information than most developers realize they are sharing.</p>
+<h3 id="7-single-point-of-failure-and-trust">7. Single Point of Failure and Trust</h3>
+<p>JioBase is operated by one person. From the <a href="https://jiobase.com/terms" target="_blank" rel="noopener">terms of service</a>
+:</p>
+<blockquote>
+<p><em>&ldquo;These Terms of Service constitute a legally binding agreement between you and Sunith VS, an individual developer operating the project JioBase.&rdquo;</em></p>
+</blockquote>
+<p>There is no company, no team, no legal entity. If Sunith decides to shut down the service, your app breaks. If his Cloudflare account gets compromised, every JioBase user&rsquo;s traffic is exposed. If he gets a legal notice from the Indian government to log traffic (which is entirely possible under the IT Act), he must comply or shut down.</p>
+<p>The terms explicitly say:</p>
+<blockquote>
+<p><em>&ldquo;Our total aggregate liability&hellip; shall not exceed&hellip; one thousand Indian Rupees (INR 1,000).&rdquo;</em></p>
+</blockquote>
+<p>That is roughly $12. If your user data gets leaked through a compromised proxy, your maximum recovery from JioBase is $12.</p>
+<h3 id="8-oauth-flows-through-the-proxy-are-especially-dangerous">8. OAuth Flows Through the Proxy Are Especially Dangerous</h3>
+<p>The proxy rewrites <code>Location</code> headers to keep OAuth redirects working through the proxy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#ff79c6">if</span> (locUrl.hostname <span style="color:#ff79c6">===</span> supabaseHost) {
+</span></span><span style="display:flex;"><span>  locUrl.hostname <span style="color:#ff79c6">=</span> url.hostname;
+</span></span><span style="display:flex;"><span>  responseHeaders.<span style="color:#ff79c6">set</span>(<span style="color:#f1fa8c">&#39;Location&#39;</span>, locUrl.toString());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This means OAuth callbacks (Google, GitHub, etc.) flow through the proxy. OAuth tokens, authorization codes, and state parameters all pass through the proxy in plaintext during the redirect chain. A compromised proxy could capture OAuth authorization codes and exchange them for access tokens to your users&rsquo; Google or GitHub accounts.</p>
+<h3 id="9-the-domain-could-be-blocked-too">9. The Domain Could Be Blocked Too</h3>
+<p>If the Indian government blocked <code>supabase.co</code>, there is nothing stopping them from blocking <code>jiobase.com</code> once it gains visibility. It is literally called &ldquo;JioBase&rdquo;, and Jio is Reliance&rsquo;s brand. The <a href="https://jiobase.com/terms" target="_blank" rel="noopener">terms of service</a>
+ even acknowledge this:</p>
+<blockquote>
+<p><em>&ldquo;ISPs or government authorities may at any time block or restrict access to JioBase domains (including <code>*.jiobase.com</code>).&rdquo;</em></p>
+</blockquote>
+<p>You would be migrating from one blocked domain to another blocked domain, having given a third party access to all your traffic in the process.</p>
+<h2 id="the-bigger-problem-vibecoding-without-understanding-infrastructure">The Bigger Problem: Vibecoding Without Understanding Infrastructure</h2>
+<p>The Supabase block exposed a deeper issue. A huge number of Indian developers built production apps where the client (browser/mobile) connects directly to Supabase endpoints. They used Supabase as both the backend and the database with no server of their own. When Supabase got blocked, they had no fallback. Zero resilience.</p>
+<p>This is the vibecoding trap. AI tools make it trivially easy to scaffold a full-stack app with Supabase in an afternoon. Cursor, Windsurf, Lovable, Bolt, or any other AI IDE will happily generate a Next.js app with Supabase Auth, database queries, and realtime subscriptions. It works. It ships. And then one day your cloud provider gets blocked in your primary market and you have no idea what to do because you never learned how hosting works.</p>
+<p>The panic-driven rush to JioBase is a symptom. The disease is building production infrastructure you do not understand.</p>
+<h2 id="what-you-should-do-instead">What You Should Do Instead</h2>
+<h3 id="option-1-self-hosted-cloudflare-worker-free-15-minutes">Option 1: Self-Hosted Cloudflare Worker (Free, 15 Minutes)</h3>
+<p>JioBase themselves offer a <a href="https://jiobase.com/tools/worker-generator" target="_blank" rel="noopener">worker generator tool</a>
+ that creates a Cloudflare Worker script you can deploy on your own Cloudflare account. This is the same proxy concept, but <strong>you</strong> control the Cloudflare account, <strong>you</strong> deploy the code, and <strong>you</strong> own the DNS. No third party sees your traffic.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># The flow becomes:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Your App<span style="color:#ff79c6">]</span> → <span style="color:#ff79c6">[</span>Your Cloudflare Worker<span style="color:#ff79c6">]</span> → <span style="color:#ff79c6">[</span>Supabase<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#                  ↑</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#          YOU control this</span>
+</span></span></code></pre></div><p>The Cloudflare Workers free tier gives you 100,000 requests per day. That is 3 million per month. For most apps, this is more than enough. You get the same DNS-bypass benefit with zero trust delegation.</p>
+<h3 id="option-2-your-own-reverse-proxy-on-a-vps-3-5month">Option 2: Your Own Reverse Proxy on a VPS ($3-5/month)</h3>
+<p>Spin up a cheap VPS on Hetzner ($3.29/month for CX22), DigitalOcean, or any provider and run nginx as a reverse proxy. You control the server, the DNS, and the TLS certificates.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#6272a4"># /etc/nginx/sites-available/supabase-proxy
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">server</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">listen</span> <span style="color:#bd93f9">443</span> <span style="color:#f1fa8c">ssl</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">server_name</span> <span style="color:#f1fa8c">api.yourdomain.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">ssl_certificate</span>     <span style="color:#f1fa8c">/etc/letsencrypt/live/api.yourdomain.com/fullchain.pem</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">ssl_certificate_key</span> <span style="color:#f1fa8c">/etc/letsencrypt/live/api.yourdomain.com/privkey.pem</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">location</span> <span style="color:#f1fa8c">/</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_pass</span> <span style="color:#f1fa8c">https://yourproject.supabase.co</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_set_header</span> <span style="color:#f1fa8c">Host</span> <span style="color:#f1fa8c">yourproject.supabase.co</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_set_header</span> <span style="color:#f1fa8c">X-Real-IP</span> <span style="color:#8be9fd;font-style:italic">$remote_addr</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># WebSocket support
+</span></span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_http_version</span> <span style="color:#bd93f9">1</span><span style="color:#f1fa8c">.1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_set_header</span> <span style="color:#f1fa8c">Upgrade</span> <span style="color:#8be9fd;font-style:italic">$http_upgrade</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">proxy_set_header</span> <span style="color:#f1fa8c">Connection</span> <span style="color:#f1fa8c">&#34;upgrade&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Point your domain&rsquo;s DNS to the VPS, get a Let&rsquo;s Encrypt certificate with <code>certbot</code>, and you have a proxy that nobody else controls.</p>
+<h3 id="option-3-pocketbase-the-self-hosted-alternative">Option 3: PocketBase, the Self-Hosted Alternative</h3>
+<p>If you are building a new project or willing to migrate, consider <a href="https://pocketbase.io/" target="_blank" rel="noopener">PocketBase</a>
+. It is an open-source backend that gives you most of what Supabase offers:</p>
+<ul>
+<li>SQLite database with a REST API</li>
+<li>Authentication (email/password, OAuth2)</li>
+<li>File storage</li>
+<li>Realtime subscriptions</li>
+<li>Admin dashboard</li>
+</ul>
+<p>The key difference: <strong>PocketBase is a single binary</strong>. It is written in Go, compiles to a ~30MB executable, and runs on anything. A $3 VPS, a Raspberry Pi, a free-tier Oracle Cloud instance. It needs no Docker, no Kubernetes, no managed database.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># Download and run PocketBase</span>
+</span></span><span style="display:flex;"><span>wget https://github.com/pocketbase/pocketbase/releases/download/v0.25.x/pocketbase_0.25.x_linux_amd64.zip
+</span></span><span style="display:flex;"><span>unzip pocketbase_0.25.x_linux_amd64.zip
+</span></span><span style="display:flex;"><span>./pocketbase serve --http<span style="color:#ff79c6">=</span>0.0.0.0:8090
+</span></span></code></pre></div><p>That is it. You now have a backend with auth, database, file storage, and realtime. Put nginx or Caddy in front of it for TLS and you have a production-ready setup that no ISP can block because it runs on your own domain.</p>
+<p>PocketBase is not a 1:1 Supabase replacement. It uses SQLite instead of PostgreSQL, it does not have Edge Functions, and its ecosystem is smaller. But for most apps that vibecoders are building (SaaS dashboards, chat apps, CRUD tools), it is more than enough.</p>
+<p>And here is the important part: <strong>you own the infrastructure</strong>. No government order can block your app by blocking someone else&rsquo;s domain. If your VPS provider gets blocked, you move to another one. You have the data, you have the binary, you have control.</p>
+<h3 id="option-4-add-a-backend-server">Option 4: Add a Backend Server</h3>
+<p>The architecturally correct fix is to not expose your database to the client at all. Instead of your browser talking directly to Supabase, put a backend server in between:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Browser<span style="color:#ff79c6">]</span> → <span style="color:#ff79c6">[</span>Your API Server<span style="color:#ff79c6">]</span> → <span style="color:#ff79c6">[</span>Supabase<span style="color:#ff79c6">]</span>
+</span></span></code></pre></div><p>Your API server can run on any VPS, any cloud provider, or any serverless platform. It talks to Supabase using the service role key on the server side (where it belongs). Your client only talks to your API server. The ISP never sees <code>supabase.co</code> in any request.</p>
+<p>This is how production apps are supposed to work. The &ldquo;connect directly from the browser to the database&rdquo; pattern that Supabase encourages is convenient for prototyping but creates exactly this kind of fragility.</p>
+<h2 id="the-math-on-risk">The Math on Risk</h2>
+<p>Let me lay this out plainly:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Aspect</th>
+          <th>JioBase (SaaS Proxy)</th>
+          <th>Self-Hosted Proxy</th>
+          <th>PocketBase on VPS</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Setup time</td>
+          <td>5 minutes</td>
+          <td>15-30 minutes</td>
+          <td>30-60 minutes</td>
+      </tr>
+      <tr>
+          <td>Monthly cost</td>
+          <td>Free</td>
+          <td>Free (CF Workers) or $3-5</td>
+          <td>$3-5</td>
+      </tr>
+      <tr>
+          <td>Who sees your tokens</td>
+          <td>JioBase + Cloudflare</td>
+          <td>Cloudflare (your account)</td>
+          <td>Nobody</td>
+      </tr>
+      <tr>
+          <td>Who sees your data</td>
+          <td>JioBase + Cloudflare</td>
+          <td>Cloudflare (your account)</td>
+          <td>Nobody</td>
+      </tr>
+      <tr>
+          <td>Can operator log traffic</td>
+          <td>Yes (technically)</td>
+          <td>No (you are the operator)</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Resilience to blocking</td>
+          <td>Low (jiobase.com can be blocked)</td>
+          <td>Medium (your domain)</td>
+          <td>High (your domain + server)</td>
+      </tr>
+      <tr>
+          <td>Vendor lock-in</td>
+          <td>Supabase + JioBase</td>
+          <td>Supabase</td>
+          <td>None</td>
+      </tr>
+      <tr>
+          <td>Liability cap</td>
+          <td>₹1,000 (~$12)</td>
+          <td>N/A</td>
+          <td>N/A</td>
+      </tr>
+  </tbody>
+</table>
+<p>Saving 15 minutes of setup is not worth giving a stranger access to all your users&rsquo; authentication tokens and personal data.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The Supabase block in India is real and frustrating. Developers who depended on direct client-to-Supabase connections are stuck. But the answer is not to route all your traffic through a random proxy built by a stranger in 2 days and run on their personal Cloudflare account.</p>
+<p>To be clear, I am not accusing JioBase&rsquo;s developer of malicious intent. The code is open source, the terms are transparent about limitations, and the project appears to be a genuine attempt to help. But good intentions do not make a service secure. The architecture of any SaaS proxy means your data is exposed at the proxy layer, and no privacy policy can change that technical reality.</p>
+<p>If you are a vibecoder who got burned by this, use it as a learning moment. Spend a weekend understanding how DNS works, what TLS termination means, how to deploy a VPS, and how to run a reverse proxy. These are fundamental skills. You do not need to become a sysadmin, but you need to understand enough to make informed decisions about where your users&rsquo; data flows.</p>
+<p>Deploy your own Cloudflare Worker. Spin up a Hetzner VPS with nginx. Try PocketBase. Build something you control. The next time a cloud service gets blocked, you will be the one who has a fix in 15 minutes instead of the one desperately feeding your traffic to strangers.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>This post is an educational analysis of the security implications of third-party proxy services. It is not legal advice. The author has no affiliation with Supabase, JioBase, Cloudflare, or PocketBase. The technical analysis is based on publicly available source code and documentation. Part of this post was assisted by AI.</p>
+
+    <div id="disqus-notice" class="dark:bg-gray-800 dark:text-gray-200" style="text-align: center; padding: 1.5rem; margin-top: 2rem; border: 1px solid #e0e0e0; border-radius: 8px;">
+  <p style="margin-bottom: 0.5rem; font-size: 1.1rem;">
+    💬 Show comments
+  </p>
+  <p style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;">
+    ⚠️ Comments are powered by Disqus. You may see ads in the comments section.
+  </p>
+  <button id="disqus-load-btn" onclick="loadDisqusComments()"
+     style="display: inline-block; padding: 0.6rem 1.5rem; background-color: #2e9fff; color: #fff; border: none; cursor: pointer; border-radius: 6px; font-weight: 500; font-size: 1rem;">
+    Show comments
+  </button>
+</div>
+<div id="disqus_thread" style="display: none; margin-top: 1rem;"></div>
+<script>
+  function loadDisqusComments() {
+    document.getElementById('disqus-notice').style.display = 'none';
+    document.getElementById('disqus_thread').style.display = 'block';
+    var d = document, s = d.createElement('script');
+    s.src = 'https://harshanu-space.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  </article><div class="bg-blue-100 dark:bg-gray-900">
+  <div class="container px-4 py-12 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div>
+      <div class="text-2xl font-bold mb-2">Follow us</div>
+      <p class="opacity-60">We share photos, videos, and stories from our travels, hikes, and cycling trips. Follow us to see where we&#39;re going next!</p>
+    </div>
+
+    <ul class="flex justify-center gap-x-3 flex-wrap gap-y-2">
+      
+    </ul>
+  </div>
+</div>
+
+    </main><footer class="container p-6 mx-auto flex justify-between items-center">
+  <span class="text-sm font-light">
+    
+    Copyright © 2022 - Harshanu · All rights reserved
+    
+  </span>
+  <span onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 15l-6 -6l-6 6h12" />
+    </svg>
+  </span>
+</footer>
+
+<div class="search-ui absolute top-0 left-0 w-full h-full bg-white dark:bg-gray-800 hidden">
+  <div class="container max-w-3xl mx-auto p-12">
+    <div class="relative">
+      <div class="my-4 text-center text-2xl font-bold">Search</div>
+
+      <span class="p-2 absolute right-0 top-0 cursor-pointer close-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </div>
+
+    <input type="search" class="py-2 px-3 w-full dark:text-black border dark:border-transparent"
+      placeholder="Enter search query" />
+
+    <div class="search-results text-lg font-medium my-4 hidden">Results</div>
+    <ul class="search-list my-2">
+
+    </ul>
+
+    <div class="no-results text-center my-8 hidden">
+      <div class="text-xl font-semibold mb-2">No results found</div>
+      <p class="font-light text-sm">Try adjusting your search query</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://harshanu.space/js/scripts.min.js"></script>
+
+
+
+
+
+
+<script>
+  
+  const darkmode = document.querySelector('.toggle-dark-mode');
+  function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkmode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkmode', 'dark')
+    }
+  }
+  if (darkmode) {
+    darkmode.addEventListener('click', toggleDarkMode);
+  }
+
+  const darkStorage = localStorage.getItem('darkmode');
+  const isBrowserDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (!darkStorage && isBrowserDark) {
+    document.documentElement.classList.add('dark');
+  }
+
+  if (darkStorage && darkStorage === 'dark') {
+    toggleDarkMode();
+  }
+</script>
+
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const mobileMenu = document.querySelector('.mobile-menu')
+  function toggleMenu() {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  }
+  if(mobileMenu && mobileMenuButton){
+    mobileMenuButton.addEventListener('click', toggleMenu)
+  }
+</script>
+</body>
+</html>

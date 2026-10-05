@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Azure on Harshanu</title>
+    <link>https://harshanu.space/en/tags/azure/</link>
+    <description>Recent content in Azure on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 05 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/azure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out</title>
+      <link>https://harshanu.space/en/tech/vector-udp-rsyslog-fanout/</link>
+      <pubDate>Mon, 05 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/vector-udp-rsyslog-fanout/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;A handful of our firewalls and NVAs were emitting &lt;strong&gt;around 35,000 syslog messages per second&lt;/strong&gt;. At roughly 1,100 bytes per message that is ~38 MB/s of UDP, and every single packet was landing on &lt;strong&gt;one core&lt;/strong&gt; of an 8 vCPU VM. Vector was pinning a vCPU at 100%, the kernel&amp;rsquo;s UDP receive buffer was overflowing, and &lt;code&gt;UdpRcvbufErrors&lt;/code&gt; was climbing. Messages were being dropped &lt;em&gt;before&lt;/em&gt; Vector ever saw them.&lt;/p&gt;&#xA;&lt;p&gt;The root cause is not a bug. Vector&amp;rsquo;s &lt;code&gt;socket&lt;/code&gt; (UDP) and &lt;code&gt;syslog&lt;/code&gt; (UDP) sources are &lt;strong&gt;single-threaded&lt;/strong&gt;: all packets enter one queue and are processed sequentially by one receive loop. This is documented behaviour, and it has been discussed at length in &lt;a href=&#34;https://github.com/vectordotdev/vector/discussions/22132&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vectordotdev/vector#22132&lt;/a&gt;&#xA;. You can throw 16 cores at Vector and it will still saturate at the same per-core ceiling, because the UDP receive path itself — not the pipeline — is the bottleneck.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

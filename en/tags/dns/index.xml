@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dns on Harshanu</title>
+    <link>https://harshanu.space/en/tags/dns/</link>
+    <description>Recent content in Dns on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Supabase Blocked in India: Why Routing Your Traffic Through a Random Proxy Is a Terrible Idea</title>
+      <link>https://harshanu.space/en/tech/dumb-vibe-coders/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/dumb-vibe-coders/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;On February 24, 2026, Indian ISPs including Jio, Airtel, and ACT Fibernet started DNS-blocking &lt;code&gt;*.supabase.co&lt;/code&gt; following a government order under Section 69A of the IT Act. Every Supabase-powered app in India broke overnight. REST queries, auth flows, file uploads, realtime WebSocket connections, all started timing out with &lt;code&gt;ERR_CONNECTION_TIMED_OUT&lt;/code&gt;. The Supabase dashboard at &lt;code&gt;supabase.com&lt;/code&gt; still works. The API domain &lt;code&gt;supabase.co&lt;/code&gt; does not.&lt;/p&gt;&#xA;&lt;p&gt;Thousands of developers panicked. Many of them are vibecoders, people who build apps by prompting AI to generate code without fully understanding what happens under the hood. They know how to &lt;code&gt;createClient()&lt;/code&gt; but not how DNS resolution or TLS handshakes work.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

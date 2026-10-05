@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.svg">
+
+  <title>
+  Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out - Harshanu
+  </title>
+  <meta name="description" content="Vector&#39;s UDP/syslog source is single-threaded, and a single-source-port flow from our firewalls defeated Azure Load Balancer hashing, pinning 35k messages/sec onto one vCPU. Here is how rsyslog fan-out, 64 MB kernel buffers, and a loopback TCP hop let one 8 vCPU VM absorb 75k messages/sec with zero UDP loss." />
+  <meta name="author" content="Harshanu" />
+  <meta name="generator" content="Hugo 0.155.2"><link
+    rel="stylesheet"
+    href="https://harshanu.space/css/styles.min.5100ae37b4f01d286e6fbf85859b8ae48eeab3031f9846f39fd3fff69942cb02.css"
+    integrity="sha256-UQCuN7TwHShub7+FhZuK5I7qswMfmEbzn9P/9plCywI="
+  />
+  
+  
+
+  <meta property="og:url" content="https://harshanu.space/en/tech/vector-udp-rsyslog-fanout/">
+  <meta property="og:site_name" content="Harshanu">
+  <meta property="og:title" content="Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out">
+  <meta property="og:description" content="Vector&#39;s UDP/syslog source is single-threaded, and a single-source-port flow from our firewalls defeated Azure Load Balancer hashing, pinning 35k messages/sec onto one vCPU. Here is how rsyslog fan-out, 64 MB kernel buffers, and a loopback TCP hop let one 8 vCPU VM absorb 75k messages/sec with zero UDP loss.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="tech">
+    <meta property="article:published_time" content="2026-10-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-10-05T00:00:00+00:00">
+    <meta property="article:tag" content="Vector">
+    <meta property="article:tag" content="Rsyslog">
+    <meta property="article:tag" content="Syslog">
+    <meta property="article:tag" content="Udp">
+    <meta property="article:tag" content="Tcp">
+    <meta property="article:tag" content="Azure">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out">
+  <meta name="twitter:description" content="Vector&#39;s UDP/syslog source is single-threaded, and a single-source-port flow from our firewalls defeated Azure Load Balancer hashing, pinning 35k messages/sec onto one vCPU. Here is how rsyslog fan-out, 64 MB kernel buffers, and a loopback TCP hop let one 8 vCPU VM absorb 75k messages/sec with zero UDP loss.">
+
+  
+  <meta itemprop="name" content="Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out">
+  <meta itemprop="description" content="Vector&#39;s UDP/syslog source is single-threaded, and a single-source-port flow from our firewalls defeated Azure Load Balancer hashing, pinning 35k messages/sec onto one vCPU. Here is how rsyslog fan-out, 64 MB kernel buffers, and a loopback TCP hop let one 8 vCPU VM absorb 75k messages/sec with zero UDP loss.">
+  <meta itemprop="datePublished" content="2026-10-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-10-05T00:00:00+00:00">
+  <meta itemprop="wordCount" content="3397">
+  <meta itemprop="keywords" content="Vector,Rsyslog,Syslog,Udp,Tcp,Azure,Load-Balancer,Observability,Performance,Networking,Kernel-Tuning">
+
+  
+  <meta name="lang" content="en" />
+  
+</head>
+<body class="dark:bg-gray-800 dark:text-white relative flex flex-col min-h-screen"><header class="container flex justify-between md:justify-between gap-4 flex-wrap p-6 mx-auto relative">
+  <a href="https://harshanu.space/en/" class="capitalize font-extrabold text-2xl">
+    
+    Harshanu
+    
+  </a>
+  <button class="mobile-menu-button md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <line x1="4" y1="8" x2="20" y2="8" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+    </svg>
+  </button>
+  <ul class="mobile-menu absolute z-10 px-6 pb-6 md:p-0 top-full left-0 w-full md:w-auto md:relative hidden md:flex flex-col md:flex-row items-end md:items-center gap-4 lg:gap-6 bg-white dark:bg-gray-800">
+
+    
+    <li><a href="/en/tech">Tech</a></li>
+    
+    <li><a href="/en/blog">Blog</a></li>
+    
+    <li><a href="/en/page/about/">About</a></li>
+    
+    <li><a href="/en/tags">Tags</a></li>
+    
+    <li><a href="/en/blog/marriage/">Top Post</a></li>
+    
+
+    
+    
+    <li class="flex items-center">
+      
+      
+      
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="3.6" y1="9" x2="20.4" y2="9" />
+        <line x1="3.6" y1="15" x2="20.4" y2="15" />
+        <path d="M11.5 3a17 17 0 0 0 0 18" />
+        <path d="M12.5 3a17 17 0 0 1 0 18" />
+      </svg>
+      <a href="/de" lang="de">Deutsch</a>
+      
+      
+    </li>
+    
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="open-search inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    
+
+    
+    <li class="grid place-items-center">
+      <span class="toggle-dark-mode inline-block cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="3" />
+          <line x1="12" y1="5" x2="12" y2="5.01" />
+          <line x1="17" y1="7" x2="17" y2="7.01" />
+          <line x1="19" y1="12" x2="19" y2="12.01" />
+          <line x1="17" y1="17" x2="17" y2="17.01" />
+          <line x1="12" y1="19" x2="12" y2="19.01" />
+          <line x1="7" y1="17" x2="7" y2="17.01" />
+          <line x1="5" y1="12" x2="5" y2="12.01" />
+          <line x1="7" y1="7" x2="7" y2="7.01" />
+        </svg>
+      </span>
+    </li>
+    
+  </ul>
+</header>
+<main class="flex-1">
+  
+  
+
+  
+  <div class="relative max-w-5xl mx-auto px-4">
+    <img src="https://photos.harshanu.space/api/v1/t/ee9b0f72878e4d3bc1286b1f61ed013e36e18a37/081gaa0s/fit_2560" class="rounded-lg shadow-sm w-full object-contain" />
+    
+    <div class="absolute top-4 right-8 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-white px-2 py-0.5">
+      
+  
+    October 5, 2026
+  
+
+
+    </div>
+    
+  </div>
+  
+
+  <article class="prose lg:prose-lg mx-auto my-8 dark:prose-dark px-4">
+
+    <h1 class="text-2xl font-bold mb-2">Vector&#39;s Single-Threaded UDP Bottleneck: Scaling to 75k syslog messages/sec with rsyslog Fan-Out</h1>
+    
+    <h5 class="text-sm flex items-center flex-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="4" y="5" width="16" height="16" rx="2" />
+        <line x1="16" y1="3" x2="16" y2="7" />
+        <line x1="8" y1="3" x2="8" y2="7" />
+        <line x1="4" y1="11" x2="20" y2="11" />
+        <rect x="8" y="15" width="2" height="2" />
+      </svg>
+      Posted on 
+  
+    October 5, 2026
+  
+
+
+      
+        &nbsp;&bull;&nbsp;
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 15" />
+      </svg>
+      16&nbsp;minutes
+      &nbsp;&bull;
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg>
+      3397&nbsp;words
+      
+        
+      
+    </h5>
+    
+
+    
+
+    <h2 id="introduction">Introduction</h2>
+<p>A handful of our firewalls and NVAs were emitting <strong>around 35,000 syslog messages per second</strong>. At roughly 1,100 bytes per message that is ~38 MB/s of UDP, and every single packet was landing on <strong>one core</strong> of an 8 vCPU VM. Vector was pinning a vCPU at 100%, the kernel&rsquo;s UDP receive buffer was overflowing, and <code>UdpRcvbufErrors</code> was climbing. Messages were being dropped <em>before</em> Vector ever saw them.</p>
+<p>The root cause is not a bug. Vector&rsquo;s <code>socket</code> (UDP) and <code>syslog</code> (UDP) sources are <strong>single-threaded</strong>: all packets enter one queue and are processed sequentially by one receive loop. This is documented behaviour, and it has been discussed at length in <a href="https://github.com/vectordotdev/vector/discussions/22132" target="_blank" rel="noopener">vectordotdev/vector#22132</a>
+. You can throw 16 cores at Vector and it will still saturate at the same per-core ceiling, because the UDP receive path itself — not the pipeline — is the bottleneck.</p>
+<p>Making it worse, our NVAs all send from the <strong>same source IP and the same source port</strong>. Azure&rsquo;s Standard Load Balancer hashes on the 5-tuple (source IP, source port, destination IP, destination port, protocol). With a single source port, every single flow hashes to the <em>same backend VM</em>. The load balancer was effectively a pass-through, and we had no way to spread the ingest across a pool of log collectors.</p>
+<p>This is a write-up of the workaround that got us from <strong>35k msg/s with packet loss to 75k msg/s with zero loss on a single 8 vCPU VM</strong> — by putting <strong>rsyslog</strong> in front of Vector to create worker threads, bumping the kernel UDP buffers to <strong>64 MB</strong>, and having Vector listen on a <strong>loopback TCP port</strong>.</p>
+<h2 id="the-symptoms">The Symptoms</h2>
+<p>The first thing I noticed was that adding cores did nothing. Vector&rsquo;s own <code>vector top</code> showed one CPU pegged and the rest idle. The classic diagnostic commands told the rest of the story:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># Kernel UDP statistics: errors and receive-buffer overflows</span>
+</span></span><span style="display:flex;"><span>$ nstat -az | grep -iE <span style="color:#f1fa8c">&#39;udp&#39;</span>
+</span></span><span style="display:flex;"><span>UdpInDatagrams                  <span style="color:#bd93f9">48213991</span>      0.0
+</span></span><span style="display:flex;"><span>UdpInErrors                      <span style="color:#bd93f9">9123844</span>      0.0   <span style="color:#6272a4"># ← non-zero and climbing</span>
+</span></span><span style="display:flex;"><span>UdpNoPorts                              <span style="color:#bd93f9">0</span>      0.0
+</span></span><span style="display:flex;"><span>UdpRcvbufErrors                  <span style="color:#bd93f9">9123844</span>      0.0   <span style="color:#6272a4"># ← buffer overflow = dropped packets</span>
+</span></span><span style="display:flex;"><span>UdpSndbufErrors                         <span style="color:#bd93f9">0</span>      0.0
+</span></span><span style="display:flex;"><span>UdpInCsumErrors                         <span style="color:#bd93f9">0</span>      0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># The socket Vector is listening on, and its receive buffer</span>
+</span></span><span style="display:flex;"><span>$ ss -lunm <span style="color:#f1fa8c">&#39;sport = :514&#39;</span>
+</span></span><span style="display:flex;"><span>State   Recv-Q   Send-Q   Local Address:Port   Peer Address:Port
+</span></span><span style="display:flex;"><span>UNCONN  <span style="color:#bd93f9">0</span>        <span style="color:#bd93f9">0</span>        0.0.0.0:514          0.0.0.0:*
+</span></span><span style="display:flex;"><span>         skmem:<span style="color:#ff79c6">(</span>r0,rb212992,t0,tb212992,f0,w0,o0,bl0,d0<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">#                              ^^^^^^^ ~208 KB, nowhere near enough</span>
+</span></span></code></pre></div><p><code>UdpRcvbufErrors</code> increments when a datagram arrives and the socket receive buffer is full, so the kernel has no choice but to drop it. UDP has no retransmission, so that message is simply gone. The 208 KB default buffer drains in a fraction of a millisecond at 38 MB/s.</p>
+<h2 id="why-vectors-udp-source-cant-scale">Why Vector&rsquo;s UDP Source Can&rsquo;t Scale</h2>
+<p>Vector&rsquo;s threading model differs by source. From the discussion in <a href="https://github.com/vectordotdev/vector/discussions/22132" target="_blank" rel="noopener">#22132</a>
+, a rough guide:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Source</th>
+          <th>Threading model</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>socket</code> (UDP)</td>
+          <td><strong>Single-threaded</strong> — all packets enter one queue, processed sequentially</td>
+      </tr>
+      <tr>
+          <td><code>syslog</code> (UDP)</td>
+          <td>Same single-threaded limitation</td>
+      </tr>
+      <tr>
+          <td><code>socket</code> (TCP)</td>
+          <td><strong>Concurrent per connection</strong> — each TCP stream gets its own task</td>
+      </tr>
+      <tr>
+          <td><code>http</code></td>
+          <td>Concurrent per request</td>
+      </tr>
+      <tr>
+          <td><code>kafka</code></td>
+          <td>One async task per partition consumer</td>
+      </tr>
+      <tr>
+          <td><code>kubernetes_logs</code></td>
+          <td>Single file-watching loop with async reads</td>
+      </tr>
+  </tbody>
+</table>
+<p>For UDP, the socket is the serializer. There is exactly one receive loop calling <code>recvfrom()</code> (or <code>recvmmsg()</code>) on one thread, no matter how many cores you have:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Vector UDP source — one receiver, one queue:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   NIC ──▶ kernel UDP rcvbuf ──▶ [ single recv loop ] ──▶ [ pipeline ] ──▶ sinks
+</span></span><span style="display:flex;"><span>                                  (1 vCPU, serialized)
+</span></span></code></pre></div><p>The 70 MB/s ceiling reported in the GitHub thread on a 16-core box is exactly this: one receive loop hitting its per-core limit while the other cores sit idle because there is no work to distribute to them.</p>
+<h3 id="what-the-community-suggested">What the community suggested</h3>
+<p>The maintainers and contributors in that thread suggested a few practical options:</p>
+<ol>
+<li><strong>Run multiple Vector instances</strong>, each bound to a different UDP port, and load-balance across ports at the sender or with a hardware LB.</li>
+<li><strong>Switch to TCP syslog</strong>, since the TCP socket source handles connections concurrently.</li>
+<li><strong>Use a UDP fan-out proxy</strong> in front of Vector (the thread suggested <code>stunnel</code>/<code>socat</code>), forwarding to one or more Vector instances.</li>
+<li><strong>Batch UDP reads</strong> with <code>recvmmsg()</code> (there is a batching PR, but it is still single-threaded).</li>
+</ol>
+<p>Option 1 doesn&rsquo;t help us, because the load balancer already collapses everything onto one VM and we cannot change the NVA source ports. Option 3 with <code>socat</code> made things <em>worse</em> — <code>socat</code> is itself effectively single-threaded per direction and just moved the bottleneck. What worked was option 3 done with <strong>rsyslog</strong>, which can genuinely receive UDP on multiple worker threads.</p>
+<h2 id="the-azure-load-balancer-curveball">The Azure Load Balancer Curveball</h2>
+<p>This is the constraint that shaped the whole design. Azure Standard Load Balancer distributes flows, not packets, using a hash of the 5-tuple:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>5-tuple hash = hash(src IP, src port, dst IP, dst port, protocol)
+</span></span></code></pre></div><p>Our NVAs are appliances that send syslog from a <strong>fixed source IP and a fixed source port</strong>. The destination (the LB frontend IP and port 514) is also fixed. So there is effectively <strong>one flow</strong>, and one flow hashes to exactly one backend:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>   NVA / Firewall fleet  ── 35,000 syslog msgs/sec (~1.1 KB each) ──┐
+</span></span><span style="display:flex;"><span>   (all send from the SAME source IP + SAME source port)            │
+</span></span><span style="display:flex;"><span>                                                                    ▼
+</span></span><span style="display:flex;"><span>                                                          ┌───────────────────┐
+</span></span><span style="display:flex;"><span>                                                          │  Azure Standard   │
+</span></span><span style="display:flex;"><span>                                                          │  Load Balancer    │
+</span></span><span style="display:flex;"><span>                                                          │  5-tuple hash:    │
+</span></span><span style="display:flex;"><span>                                                          │  src IP, src port,│
+</span></span><span style="display:flex;"><span>                                                          │  dst IP, dst port,│
+</span></span><span style="display:flex;"><span>                                                          │  protocol         │
+</span></span><span style="display:flex;"><span>                                                          └─────────┬─────────┘
+</span></span><span style="display:flex;"><span>                                                                    │  one flow ⇒ one backend
+</span></span><span style="display:flex;"><span>                                                                    ▼
+</span></span><span style="display:flex;"><span>                                             ┌───────────────────────────────────────┐
+</span></span><span style="display:flex;"><span>                                             │  VM-1 (8 vCPU)                         │
+</span></span><span style="display:flex;"><span>                                             │                                        │
+</span></span><span style="display:flex;"><span>                                             │  Vector socket/syslog source (UDP)     │
+</span></span><span style="display:flex;"><span>                                             │  ── SINGLE receive loop ──▶ 1 vCPU 🔥  │
+</span></span><span style="display:flex;"><span>                                             │                                        │
+</span></span><span style="display:flex;"><span>                                             │  UDP rcvbuf overflow                   │
+</span></span><span style="display:flex;"><span>                                             │  UdpRcvbufErrors ↑  ⇒  PACKETS DROPPED │
+</span></span><span style="display:flex;"><span>                                             └───────────────────────────────────────┘
+</span></span></code></pre></div><p>If we controlled the senders, rsyslog&rsquo;s <a href="https://docs.rsyslog.com/doc/configuration/modules/omfwd.html" target="_blank" rel="noopener"><code>RebindInterval</code></a>
+ directive would let them periodically close and reopen their UDP send socket so the <strong>source port changes</strong>, which is exactly the standard trick to keep load balancers honest. But these are vendor appliances; we cannot touch their configuration. So the only lever we control is <strong>what runs on the single backend VM</strong> — and it has to absorb the entire 38 MB/s firehose on its own.</p>
+<h2 id="why-rsyslog-fixes-what-vector-cant">Why rsyslog Fixes What Vector Can&rsquo;t</h2>
+<p>Here is the key detail that makes this work. rsyslog&rsquo;s <code>imudp</code> module can run <strong>multiple worker threads</strong>, and — unlike a naive fan-out proxy — all of those workers pull from the <strong>same UDP socket</strong> in parallel:</p>
+<ul>
+<li>Every worker thread adds the listen port to an <code>epoll()</code> set and waits for packets.</li>
+<li>Each worker calls <code>recvmmsg()</code> to grab a <strong>batch</strong> of datagrams in one syscall, reducing kernel/user transitions.</li>
+<li>When many workers are active, one worker can be reading from the kernel buffer while another is processing the batch it already read. At high volume this keeps the buffer drained.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Vector UDP source:               rsyslog imudp (threads=N):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  socket ──▶ [ 1 recv loop ]      socket ──▶ [ worker 0  recvmmsg ─┐
+</span></span><span style="display:flex;"><span>                                              [ worker 1  recvmmsg ─┤
+</span></span><span style="display:flex;"><span>                                              [ worker 2  recvmmsg ─┼─▶ ruleset queue
+</span></span><span style="display:flex;"><span>                                              [   ... N workers ...  ┤
+</span></span><span style="display:flex;"><span>                                              (all pull from the      ┘
+</span></span><span style="display:flex;"><span>                                               SAME socket)
+</span></span></code></pre></div><p>So a <strong>single-source-port flow</strong> — the exact thing that defeats the Azure LB and Vector&rsquo;s one receive loop — is now drained by <strong>N cores</strong>. rsyslog then forwards over <strong>TCP on loopback</strong>, which is a reliable, back-pressured transport: if Vector is momentarily slow, TCP applies backpressure and rsyslog&rsquo;s queue grows instead of the kernel silently dropping UDP packets. Vector listens as a TCP source, which is <strong>concurrent per connection</strong>, and rsyslog&rsquo;s <code>omfwd</code> <strong>TCP target pool</strong> opens one connection per target, giving us real fan-out into multiple Vector receive tasks.</p>
+<h2 id="the-new-architecture">The New Architecture</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>   NVA / Firewall fleet  ── 35k–75k syslog msgs/sec ─────────────┐
+</span></span><span style="display:flex;"><span>   (unchanged: same source IP, same source port)                 │
+</span></span><span style="display:flex;"><span>                                                                 ▼
+</span></span><span style="display:flex;"><span>                                                       ┌───────────────────┐
+</span></span><span style="display:flex;"><span>                                                       │  Azure Standard   │
+</span></span><span style="display:flex;"><span>                                                       │  Load Balancer    │  ← still pins
+</span></span><span style="display:flex;"><span>                                                       └─────────┬─────────┘     to VM-1
+</span></span><span style="display:flex;"><span>                                                                 ▼
+</span></span><span style="display:flex;"><span>   ┌───────────────────────────── VM-1 (8 vCPU, 64 MB UDP buffers) ─────────────────────────────┐
+</span></span><span style="display:flex;"><span>   │                                                                                            │
+</span></span><span style="display:flex;"><span>   │   ┌──────────────────────────── rsyslog ────────────────────────────┐                      │
+</span></span><span style="display:flex;"><span>   │   │ imudp: threads=8, batchSize=32, rcvbufSize=64m  (recvmmsg)      │                      │
+</span></span><span style="display:flex;"><span>   │   │        │                                                        │                      │
+</span></span><span style="display:flex;"><span>   │   │        ▼  ruleset queue (fixedArray, 250k slots, 8 workers)     │                      │
+</span></span><span style="display:flex;"><span>   │   │   omfwd: TCP target pool 127.0.0.1:[1514,1515,1516,1517]        │                      │
+</span></span><span style="display:flex;"><span>   │   └───────┬──────────────┬──────────────┬──────────────┬───────────┘                      │
+</span></span><span style="display:flex;"><span>   │           │ conn 1       │ conn 2       │ conn 3       │ conn 4    (loopback TCP)          │
+</span></span><span style="display:flex;"><span>   │           ▼              ▼              ▼              ▼                                    │
+</span></span><span style="display:flex;"><span>   │   ┌──────────── Vector (socket source, mode=tcp) ─────────────┐                             │
+</span></span><span style="display:flex;"><span>   │   │  vec_in_0     vec_in_1     vec_in_2     vec_in_3          │  ← per-connection tasks     │
+</span></span><span style="display:flex;"><span>   │   │   :1514        :1515        :1516        :1517            │                             │
+</span></span><span style="display:flex;"><span>   │   └──────┬────────────┬────────────┬────────────┬────────────┘                             │
+</span></span><span style="display:flex;"><span>   │          └────────────┴─────┬──────┴────────────┘                                           │
+</span></span><span style="display:flex;"><span>   │                             ▼  remap → parse_syslog() → enrichment                          │
+</span></span><span style="display:flex;"><span>   │                     [ sinks: Splunk / Elasticsearch / S3 ]                                  │
+</span></span><span style="display:flex;"><span>   └────────────────────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><p>The flow, end to end:</p>
+<ol>
+<li>NVAs send UDP syslog to the Azure LB, exactly as before.</li>
+<li>The LB still pins everything to VM-1 — we did not (and cannot) fix that.</li>
+<li>rsyslog&rsquo;s <code>imudp</code> drains the single UDP flow with <strong>8 worker threads</strong> using batched <code>recvmmsg()</code> reads and a <strong>64 MB</strong> receive buffer.</li>
+<li>rsyslog pushes messages into a large in-memory queue, decoupling reception from forwarding.</li>
+<li><code>omfwd</code> round-robins the messages across a <strong>TCP target pool</strong> of four loopback listeners (<code>127.0.0.1:1514-1517</code>), opening one connection per target.</li>
+<li>Vector runs four <code>socket</code> sources in TCP mode. Because the TCP source is concurrent per connection, this gives us four concurrent receive tasks instead of one serialized loop.</li>
+<li>The parsed events flow through the normal Vector pipeline into the sinks.</li>
+</ol>
+<h2 id="step-1-increase-the-kernel-udp-buffers">Step 1: Increase the Kernel UDP Buffers</h2>
+<p>This is non-negotiable. If you only do one thing, do this. The default <code>rmem_max</code> on most distros is ~208 KB, which is a rounding error at 38 MB/s.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># /etc/sysctl.d/99-syslog-tuning.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Socket receive buffer: allow rsyslog&#39;s imudp to request 64 MB.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># rmem_max MUST be &gt;= the rcvbufSize you configure in rsyslog,</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># otherwise the kernel silently clamps the request.</span>
+</span></span><span style="display:flex;"><span>net.core.rmem_max <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">67108864</span>
+</span></span><span style="display:flex;"><span>net.core.rmem_default <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">67108864</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Backlog for packets handed from the NIC to the network stack.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Azure VMs use accelerated networking, but this still helps during bursts.</span>
+</span></span><span style="display:flex;"><span>net.core.netdev_max_backlog <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">250000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Keep at least 256 KB per UDP socket, and allow the UDP memory</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># pool to grow to ~1 GB under pressure. Values are in 4 KB pages.</span>
+</span></span><span style="display:flex;"><span>net.ipv4.udp_rmem_min <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">65536</span>
+</span></span><span style="display:flex;"><span>net.ipv4.udp_mem <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">65536</span> <span style="color:#bd93f9">131072</span> <span style="color:#bd93f9">262144</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Accept queue for any listener (loopback TCP fan-in)</span>
+</span></span><span style="display:flex;"><span>net.core.somaxconn <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4096</span>
+</span></span></code></pre></div><p>Apply and verify:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo sysctl --system
+</span></span><span style="display:flex;"><span>$ sysctl net.core.rmem_max net.core.netdev_max_backlog
+</span></span><span style="display:flex;"><span>net.core.rmem_max <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">67108864</span>
+</span></span><span style="display:flex;"><span>net.core.netdev_max_backlog <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">250000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Confirm the socket actually got the big buffer (look at the &#39;rb&#39; value)</span>
+</span></span><span style="display:flex;"><span>$ ss -lunm <span style="color:#f1fa8c">&#39;sport = :514&#39;</span>
+</span></span><span style="display:flex;"><span>State   Recv-Q   Send-Q   Local Address:Port   Peer Address:Port
+</span></span><span style="display:flex;"><span>UNCONN  <span style="color:#bd93f9">0</span>        <span style="color:#bd93f9">0</span>        0.0.0.0:514          0.0.0.0:*
+</span></span><span style="display:flex;"><span>         skmem:<span style="color:#ff79c6">(</span>r0,rb67108864,t0,tb212992,f0,w0,o0,bl0,d0<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#6272a4">#              ^^^^^^^^^^ 64 MB — good</span>
+</span></span></code></pre></div><p>How big should the buffer be? It depends on how fast your messages arrive and how long your worst-case forwarding stall lasts. Start at 64 MB, watch <code>UdpRcvbufErrors</code>, and go up only if it is still non-zero under peak load. There is no point allocating gigabytes &ldquo;just in case&rdquo; — each buffer is pinned kernel memory.</p>
+<h2 id="step-2-rsyslog-as-the-multi-threaded-udp-fan-out-proxy">Step 2: rsyslog as the Multi-Threaded UDP Fan-Out Proxy</h2>
+<p>This is the heart of the fix. rsyslog listens on UDP 514 with multiple worker threads, queues messages, and forwards them over a TCP target pool to Vector on loopback.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># /etc/rsyslog.d/10-vector-fanout.conf</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Global: a writable work directory for internal state</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>global<span style="color:#ff79c6">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">workDirectory</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/var/spool/rsyslog&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">maxMessageSize</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;64k&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Input: UDP syslog with 8 receive worker threads and a 64 MB socket buffer.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   threads   - number of imudp worker threads pulling from the SAME socket.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#               Size this to your vCPU count (max 32).</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   batchSize - max datagrams fetched per recvmmsg() call. Fewer syscalls</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#               means less kernel/user transition overhead at high volume.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   rcvbufSize - request a 64 MB SO_RCVBUF (requires net.core.rmem_max).</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>module<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">load</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;imudp&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">threads</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;8&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">batchSize</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;32&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">timeRequery</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;8&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>input<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;imudp&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8be9fd;font-style:italic">address</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;0.0.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8be9fd;font-style:italic">port</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;514&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8be9fd;font-style:italic">rcvbufSize</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;64m&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8be9fd;font-style:italic">ruleset</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;vector_fanout&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Template: pass the message through unmodified, one LF-delimited line.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># We deliberately do NOT parse in rsyslog — Vector will do that, so the</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># hot path here stays as cheap as possible.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>template<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;rawlf&#34;</span> <span style="color:#8be9fd;font-style:italic">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;string&#34;</span> <span style="color:#8be9fd;font-style:italic">string</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;%rawmsg%\n&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Ruleset: a big in-memory queue decouples receive from forwarding.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># If Vector briefly stalls, TCP backpressure fills this queue instead of</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># the kernel dropping UDP datagrams.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>ruleset<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;vector_fanout&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.type<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fixedArray&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.size<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;250000&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.highWaterMark<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;200000&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.lowWaterMark<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;150000&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.discardMark<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;240000&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.workerThreads<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;8&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.dequeueBatchSize<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;512&#34;</span>
+</span></span><span style="display:flex;"><span>        queue.timeoutWorkerthreadShutdown<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2000&#34;</span><span style="color:#ff79c6">)</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># -----------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># omfwd TCP target pool = the fan-out.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">#</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">#   target = array of hosts  -&gt; rsyslog forms a load-balanced pool and</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">#                               round-robins across online targets.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">#   port   = matching array  -&gt; first port for first target, etc.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">#</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># All four targets are the same loopback host on DIFFERENT ports, so we</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># get four independent TCP connections into four Vector listeners,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># each handled by its own Vector task.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># -----------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>    action<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;omfwd&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;vector_pool&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">target</span><span style="color:#ff79c6">=[</span><span style="color:#f1fa8c">&#34;127.0.0.1&#34;</span>,<span style="color:#f1fa8c">&#34;127.0.0.1&#34;</span>,<span style="color:#f1fa8c">&#34;127.0.0.1&#34;</span>,<span style="color:#f1fa8c">&#34;127.0.0.1&#34;</span><span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">port</span><span style="color:#ff79c6">=[</span><span style="color:#f1fa8c">&#34;1514&#34;</span>,<span style="color:#f1fa8c">&#34;1515&#34;</span>,<span style="color:#f1fa8c">&#34;1516&#34;</span>,<span style="color:#f1fa8c">&#34;1517&#34;</span><span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">protocol</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">template</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;rawlf&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">TCP_Framing</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;traditional&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#8be9fd;font-style:italic">keepAlive</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;on&#34;</span>
+</span></span><span style="display:flex;"><span>           keepAlive.interval<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;30&#34;</span>
+</span></span><span style="display:flex;"><span>           action.resumeRetryCount<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;-1&#34;</span>
+</span></span><span style="display:flex;"><span>           action.resumeInterval<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;5&#34;</span>
+</span></span><span style="display:flex;"><span>           action.reportSuspension<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;on&#34;</span>
+</span></span><span style="display:flex;"><span>           queue.type<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;linkedList&#34;</span>
+</span></span><span style="display:flex;"><span>           queue.size<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;100000&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Optional but strongly recommended: emit rsyslog&#39;s internal counters so you</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># can see queue depth, imudp worker activity, and the action pool health.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>module<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">load</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;impstats&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">interval</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;60&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">severity</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;7&#34;</span>
+</span></span><span style="display:flex;"><span>       log.syslog<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;off&#34;</span>
+</span></span><span style="display:flex;"><span>       log.file<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/var/log/rsyslog-stats.log&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#8be9fd;font-style:italic">resetCounters</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;off&#34;</span><span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p>A few things worth calling out:</p>
+<ul>
+<li><strong><code>target</code> as an array forms a pool.</strong> Per the rsyslog docs, an array of targets enables round-robin delivery among online targets, unreachable hosts are removed and retried every 30 seconds, and pools require TCP. That is exactly the &ldquo;fan-out proxy&rdquo; behaviour we want, implemented natively.</li>
+<li><strong><code>port</code> as an array maps one-to-one with <code>target</code>.</strong> The first port is used for the first target, and so on. This is how we get four distinct loopback connections from one action.</li>
+<li><strong><code>TCP_Framing=&quot;traditional&quot;</code></strong> means LF-delimited messages, which matches Vector&rsquo;s default newline framing. If your logs can contain embedded newlines, switch to <code>octet-counted</code> and configure Vector&rsquo;s <code>length_delimited</code> framing instead — but for single-line firewall/syslog traffic, traditional is fine and cheaper.</li>
+<li><strong>Two levels of queueing.</strong> <code>imudp</code> workers push into the ruleset queue; the action has its own queue feeding the pool. This is what absorbs microbursts without dropping.</li>
+<li><strong>Sizing note:</strong> total threads = <code>imudp.threads</code> (8) + <code>queue.workerThreads</code> (8) + the action&rsquo;s queue workers. Do not blindly set everything to vCPU count — oversubscribing the box can <em>reduce</em> throughput while increasing CPU use. The rsyslog docs explicitly warn about this. Start low, measure with <code>impstats</code>, and add threads only when the data says it helps.</li>
+</ul>
+<h2 id="step-3-vector-listens-on-loopback-tcp">Step 3: Vector Listens on Loopback TCP</h2>
+<p>Vector now does what its TCP source is good at: accept multiple connections and process each one concurrently. Use the <code>socket</code> source in <code>mode = &quot;tcp&quot;</code>, one listener per pool port.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#6272a4"># /etc/vector/vector.toml</span>
+</span></span><span style="display:flex;"><span>data_dir = <span style="color:#f1fa8c">&#34;/var/lib/vector&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Four TCP listeners on loopback. rsyslog&#39;s omfwd target pool opens one</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># connection to each. Vector&#39;s TCP socket source is concurrent per</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># connection, so these are four parallel receive tasks instead of the</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># single serialized UDP receive loop we started with.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>[sources.vec_in_0]
+</span></span><span style="display:flex;"><span>type    = <span style="color:#f1fa8c">&#34;socket&#34;</span>
+</span></span><span style="display:flex;"><span>address = <span style="color:#f1fa8c">&#34;127.0.0.1:1514&#34;</span>
+</span></span><span style="display:flex;"><span>mode    = <span style="color:#f1fa8c">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[sources.vec_in_1]
+</span></span><span style="display:flex;"><span>type    = <span style="color:#f1fa8c">&#34;socket&#34;</span>
+</span></span><span style="display:flex;"><span>address = <span style="color:#f1fa8c">&#34;127.0.0.1:1515&#34;</span>
+</span></span><span style="display:flex;"><span>mode    = <span style="color:#f1fa8c">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[sources.vec_in_2]
+</span></span><span style="display:flex;"><span>type    = <span style="color:#f1fa8c">&#34;socket&#34;</span>
+</span></span><span style="display:flex;"><span>address = <span style="color:#f1fa8c">&#34;127.0.0.1:1516&#34;</span>
+</span></span><span style="display:flex;"><span>mode    = <span style="color:#f1fa8c">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[sources.vec_in_3]
+</span></span><span style="display:flex;"><span>type    = <span style="color:#f1fa8c">&#34;socket&#34;</span>
+</span></span><span style="display:flex;"><span>address = <span style="color:#f1fa8c">&#34;127.0.0.1:1517&#34;</span>
+</span></span><span style="display:flex;"><span>mode    = <span style="color:#f1fa8c">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># One transform shared by all four sources. parse_syslog() turns the raw</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># line into structured fields (facility, severity, hostname, appname,</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># message, ...).</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>[transforms.parse]
+</span></span><span style="display:flex;"><span>type    = <span style="color:#f1fa8c">&#34;remap&#34;</span>
+</span></span><span style="display:flex;"><span>inputs  = [<span style="color:#f1fa8c">&#34;vec_in_0&#34;</span>, <span style="color:#f1fa8c">&#34;vec_in_1&#34;</span>, <span style="color:#f1fa8c">&#34;vec_in_2&#34;</span>, <span style="color:#f1fa8c">&#34;vec_in_3&#34;</span>]
+</span></span><span style="display:flex;"><span>source = <span style="color:#f1fa8c">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">. = parse_syslog!(string!(.message))
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">.seen_by = &#34;vm-1&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f1fa8c">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Sink (example: Elasticsearch/OpenSearch). Tune batching for throughput.</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># ---------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>[sinks.opensearch]
+</span></span><span style="display:flex;"><span>type         = <span style="color:#f1fa8c">&#34;elasticsearch&#34;</span>
+</span></span><span style="display:flex;"><span>inputs       = [<span style="color:#f1fa8c">&#34;parse&#34;</span>]
+</span></span><span style="display:flex;"><span>endpoints    = [<span style="color:#f1fa8c">&#34;https://opensearch.internal:9200&#34;</span>]
+</span></span><span style="display:flex;"><span>bulk.index   = <span style="color:#f1fa8c">&#34;firewall-syslog-%Y.%m.%d&#34;</span>
+</span></span><span style="display:flex;"><span>batch.max_events     = <span style="color:#bd93f9">5000</span>
+</span></span><span style="display:flex;"><span>batch.timeout_secs   = <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>request.concurrency  = <span style="color:#f1fa8c">&#34;adaptive&#34;</span>
+</span></span></code></pre></div><p>If you want even more Vector-side parallelism, run <strong>one Vector process per port</strong> and pin each to distinct cores with systemd&rsquo;s <code>CPUAffinity</code>, or use Vector&rsquo;s <code>[api]</code> + <code>vector top</code> to confirm the load is actually spread.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># systemd drop-in to pin Vector to a core (optional, per instance)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># /etc/systemd/system/vector.service.d/affinity.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Service<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">CPUAffinity</span><span style="color:#ff79c6">=</span>2-5
+</span></span></code></pre></div><h2 id="verifying-the-fix">Verifying the Fix</h2>
+<p>Watch the drop counters. This is the whole ballgame:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># Before: this climbs continuously. After: it must stay flat at 0.</span>
+</span></span><span style="display:flex;"><span>$ watch -n2 <span style="color:#f1fa8c">&#34;nstat -az | grep -E &#39;UdpInDatagrams|UdpRcvbufErrors&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>UdpInDatagrams                <span style="color:#bd93f9">69123011</span>      0.0
+</span></span><span style="display:flex;"><span>UdpRcvbufErrors                      <span style="color:#bd93f9">0</span>      0.0   <span style="color:#6272a4"># ← zero drops</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># rsyslog internal stats: imudp worker throughput + queue depth</span>
+</span></span><span style="display:flex;"><span>$ tail -f /var/log/rsyslog-stats.log
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   imudp(w0)  msgs.received: 2.1M  called.recvmmsg: 68k</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   imudp(w3)  msgs.received: 2.0M  called.recvmmsg: 66k</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#   vecpool    queue.size=0  messages.sent=8.4M  num.connects=4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Vector internal metrics</span>
+</span></span><span style="display:flex;"><span>$ vector top
+</span></span></code></pre></div><p>Two things I specifically looked for:</p>
+<ol>
+<li><strong><code>UdpRcvbufErrors</code> flat at zero.</strong> If it is still climbing, your buffer is too small or you do not have enough <code>imudp</code> threads — or the CPU is simply saturated and you need more cores.</li>
+<li><strong>All <code>imudp</code> workers active</strong>, not just <code>w0</code>. If one worker is doing everything, the <code>threads</code> parameter is not taking effect or the volume is too low to need them.</li>
+</ol>
+<h2 id="results">Results</h2>
+<p>On the same 8 vCPU VM, with no change to the NVAs or the Azure LB:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Metric</th>
+          <th>Before (Vector UDP direct)</th>
+          <th>After (rsyslog fan-out → Vector TCP)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Sustained throughput</td>
+          <td>~35k msg/s</td>
+          <td><strong>~75k msg/s</strong></td>
+      </tr>
+      <tr>
+          <td>Bytes/sec (~1.1 KB/msg)</td>
+          <td>~38 MB/s</td>
+          <td>~82 MB/s</td>
+      </tr>
+      <tr>
+          <td>CPU usage</td>
+          <td>1 vCPU pinned at 100%, 7 idle</td>
+          <td>spread across cores</td>
+      </tr>
+      <tr>
+          <td><code>UdpRcvbufErrors</code></td>
+          <td>climbing continuously</td>
+          <td><strong>0</strong></td>
+      </tr>
+      <tr>
+          <td>UDP packet loss</td>
+          <td>yes, under peak</td>
+          <td><strong>none observed</strong></td>
+      </tr>
+      <tr>
+          <td>Backend VMs</td>
+          <td>1 (LB constraint)</td>
+          <td>1 (LB constraint unchanged)</td>
+      </tr>
+      <tr>
+          <td>Per-message transport</td>
+          <td>UDP end to end</td>
+          <td>UDP → loopback TCP → Vector</td>
+      </tr>
+  </tbody>
+</table>
+<p><img src="/images/vector-udp-throughput.png" alt="Grafana dashboard showing UDP InDatagrams peaking near 68k/s with a mean of ~37.6k/s over 24 hours, while every UDP error counter (InErrors, RcvbufErrors, SndbufErrors and NoPorts) stays flat at zero."></p>
+<p><em>Grafana: UDP throughput over a 24-hour window (top) with every UDP error counter pinned at zero (bottom) — sustained bursts up to ~68k datagrams/sec with no receive-buffer errors and no packet loss.</em></p>
+<p>We more than doubled throughput and eliminated UDP drops, and we did it <strong>without</strong> being able to fix the actual architectural problem — a vendor appliance using a single source port behind a 5-tuple-hashing load balancer.</p>
+<h2 id="trade-offs-and-gotchas">Trade-offs and Gotchas</h2>
+<p>This is a pragmatic workaround, not a free lunch. Be honest about what you are adding:</p>
+<ul>
+<li><strong>An extra hop.</strong> Every message now traverses rsyslog → loopback TCP → Vector. On loopback the latency is sub-millisecond, but it is real. If your SLA is measured in microseconds, measure it.</li>
+<li><strong>One more thing to operate.</strong> rsyslog is now in the critical path. If it dies, logs stop. Monitor it (that is what <code>impstats</code> is for), and make it a proper systemd service with restart-on-failure.</li>
+<li><strong>Ordering is no longer guaranteed</strong> across the four pooled connections. For firewall/syslog analytics this is almost always irrelevant, but if downstream correlation depends on strict ordering, this design will not give it to you.</li>
+<li><strong>Framing mismatch is the classic footgun.</strong> <code>traditional</code> (LF) framing splits multi-line messages. If any log source can emit embedded newlines, use <code>octet-counted</code> end to end.</li>
+<li><strong>Buffers cost memory.</strong> A 64 MB socket buffer plus 250k queue slots is not free. Size deliberately.</li>
+<li><strong>Upstream UDP is still UDP.</strong> rsyslog protects you from loss <em>after</em> the kernel socket, not before. If the NIC or the network drops a packet in flight from the NVA, it is still gone. This design makes the receiver fast enough to not be the reason packets are dropped; it does not make UDP reliable.</li>
+<li><strong>The real fixes are structural.</strong> Fix the NVA so it uses ephemeral source ports (then the LB will spread the flows), or terminate syslog on multiple ingress points, or wait for Vector to gain a multi-threaded/<code>recvmmsg</code> UDP source. If you control the senders, rsyslog&rsquo;s <code>RebindInterval</code> on the <em>sending</em> side rotates the source port and is a much cleaner way to keep the load balancer honest.</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p>Vector&rsquo;s UDP source being single-threaded is a fundamental limitation, and when a single-source-port flow defeats your load balancer&rsquo;s 5-tuple hashing, you cannot fix it from the sender side. The move that works is to stop asking Vector to receive the UDP flood at all:</p>
+<ol>
+<li><strong>rsyslog <code>imudp</code> with <code>threads = vCPU count</code></strong> drains a single UDP flow with batched <code>recvmmsg()</code> reads across many cores.</li>
+<li><strong>Increase kernel UDP buffers to 64 MB</strong> (<code>net.core.rmem_max</code>) so the socket has room to breathe during bursts.</li>
+<li><strong>rsyslog forwards over a loopback TCP target pool</strong> — reliable, back-pressured, and natively load-balanced across targets.</li>
+<li><strong>Vector listens on loopback TCP</strong> (<code>socket</code> source, <code>mode = &quot;tcp&quot;</code>), which is concurrent per connection, giving real fan-in parallelism and eliminating the serialized receive loop.</li>
+</ol>
+<p>That took one 8 vCPU VM from 35k messages/sec with packet loss to <strong>75k messages/sec with zero UDP loss</strong>, under an architectural constraint we could not change. It is not elegant, but it is honest, and it works.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/vectordotdev/vector/discussions/22132" target="_blank" rel="noopener">vectordotdev/vector discussion #22132 — Vector CPU Utilisation</a>
+</li>
+<li><a href="https://vector.dev/docs/reference/configuration/sources/socket/" target="_blank" rel="noopener">Vector <code>socket</code> source documentation</a>
+</li>
+<li><a href="https://docs.rsyslog.com/doc/configuration/modules/imudp.html" target="_blank" rel="noopener">rsyslog <code>imudp</code> module (threads, batchSize, rcvbufSize)</a>
+</li>
+<li><a href="https://docs.rsyslog.com/doc/configuration/modules/omfwd.html" target="_blank" rel="noopener">rsyslog <code>omfwd</code> module (TCP target pools, framing, rebind)</a>
+</li>
+<li><a href="https://www.rsyslog.com/load-balancing-for-rsyslog/" target="_blank" rel="noopener">rsyslog: Load balancing for rsyslog</a>
+</li>
+</ul>
+<p><em>Part of this post was assisted by AI. The architecture and tuning described reflect a real production deployment.</em></p>
+
+    <div id="disqus-notice" class="dark:bg-gray-800 dark:text-gray-200" style="text-align: center; padding: 1.5rem; margin-top: 2rem; border: 1px solid #e0e0e0; border-radius: 8px;">
+  <p style="margin-bottom: 0.5rem; font-size: 1.1rem;">
+    💬 Show comments
+  </p>
+  <p style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;">
+    ⚠️ Comments are powered by Disqus. You may see ads in the comments section.
+  </p>
+  <button id="disqus-load-btn" onclick="loadDisqusComments()"
+     style="display: inline-block; padding: 0.6rem 1.5rem; background-color: #2e9fff; color: #fff; border: none; cursor: pointer; border-radius: 6px; font-weight: 500; font-size: 1rem;">
+    Show comments
+  </button>
+</div>
+<div id="disqus_thread" style="display: none; margin-top: 1rem;"></div>
+<script>
+  function loadDisqusComments() {
+    document.getElementById('disqus-notice').style.display = 'none';
+    document.getElementById('disqus_thread').style.display = 'block';
+    var d = document, s = d.createElement('script');
+    s.src = 'https://harshanu-space.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  </article><div class="bg-blue-100 dark:bg-gray-900">
+  <div class="container px-4 py-12 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div>
+      <div class="text-2xl font-bold mb-2">Follow us</div>
+      <p class="opacity-60">We share photos, videos, and stories from our travels, hikes, and cycling trips. Follow us to see where we&#39;re going next!</p>
+    </div>
+
+    <ul class="flex justify-center gap-x-3 flex-wrap gap-y-2">
+      
+    </ul>
+  </div>
+</div>
+
+    </main><footer class="container p-6 mx-auto flex justify-between items-center">
+  <span class="text-sm font-light">
+    
+    Copyright © 2022 - Harshanu · All rights reserved
+    
+  </span>
+  <span onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-1 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5"
+      stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 15l-6 -6l-6 6h12" />
+    </svg>
+  </span>
+</footer>
+
+<div class="search-ui absolute top-0 left-0 w-full h-full bg-white dark:bg-gray-800 hidden">
+  <div class="container max-w-3xl mx-auto p-12">
+    <div class="relative">
+      <div class="my-4 text-center text-2xl font-bold">Search</div>
+
+      <span class="p-2 absolute right-0 top-0 cursor-pointer close-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </span>
+    </div>
+
+    <input type="search" class="py-2 px-3 w-full dark:text-black border dark:border-transparent"
+      placeholder="Enter search query" />
+
+    <div class="search-results text-lg font-medium my-4 hidden">Results</div>
+    <ul class="search-list my-2">
+
+    </ul>
+
+    <div class="no-results text-center my-8 hidden">
+      <div class="text-xl font-semibold mb-2">No results found</div>
+      <p class="font-light text-sm">Try adjusting your search query</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script src="https://harshanu.space/js/scripts.min.js"></script>
+
+
+
+
+
+
+<script>
+  
+  const darkmode = document.querySelector('.toggle-dark-mode');
+  function toggleDarkMode() {
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkmode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkmode', 'dark')
+    }
+  }
+  if (darkmode) {
+    darkmode.addEventListener('click', toggleDarkMode);
+  }
+
+  const darkStorage = localStorage.getItem('darkmode');
+  const isBrowserDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (!darkStorage && isBrowserDark) {
+    document.documentElement.classList.add('dark');
+  }
+
+  if (darkStorage && darkStorage === 'dark') {
+    toggleDarkMode();
+  }
+</script>
+
+
+<script>
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const mobileMenu = document.querySelector('.mobile-menu')
+  function toggleMenu() {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('flex');
+  }
+  if(mobileMenu && mobileMenuButton){
+    mobileMenuButton.addEventListener('click', toggleMenu)
+  }
+</script>
+</body>
+</html>

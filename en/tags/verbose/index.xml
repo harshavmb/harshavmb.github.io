@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Verbose on Harshanu</title>
+    <link>https://harshanu.space/en/tags/verbose/</link>
+    <description>Recent content in Verbose on Harshanu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://harshanu.space/en/tags/verbose/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hide sensitive data in Ansible verbose logs</title>
+      <link>https://harshanu.space/en/tech/ansible-redact/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://harshanu.space/en/tech/ansible-redact/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;In the realm of infrastructure automation, Ansible has emerged as a powerful tool, enabling users to manage and configure complex IT environments with ease. However, one of the persistent challenges in automation is the secure handling of sensitive information, such as passwords and API keys. When verbose logging is enabled in Ansible playbooks, these secrets could potentially be exposed in the logs, leading to significant security risks.&lt;/p&gt;&#xA;&lt;p&gt;To address this concern, callback plugins offer a viable solution for masking sensitive information in Ansible playbook logs. Callback plugins are custom modules that intercept and modify Ansible task output, providing a mechanism to sanitize logs before they are displayed or stored.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
